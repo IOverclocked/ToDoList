@@ -1,0 +1,7 @@
+
+.icon-add:before { content: '\e800'; } /* '' */
+.icon-settings:before { content: '\e801'; } /* '' */
+.icon-delete:before { content: '\e802'; } /* '' */
+.icon-edit:before { content: '\e803'; } /* '' */
+.icon-done:before { content: '\e804'; } /* '' */
+.icon-star:before { content: '\e805'; } /* '' */

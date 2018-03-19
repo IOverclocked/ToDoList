@@ -5,17 +5,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>ToDoList</title>
+    <link rel="stylesheet" href="css/fontello/css/fontello.css">
     <link rel="stylesheet" href="css/main.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/script.js"></script>
 </head>
 <body>
-    <div>11</div>
 
-    <h1>aaa</h1><span>aaa</span>
+    <div class="grid-container">
 
-    <p>Lorem ipsum.</p>
+        <header>
 
-    <div class="new">jakiś tekst</div>
+            <h1>ToDoList</h1>
+            <i class="icon-add"></i>
+            <form>
+                <label for="title">
+                    <input type="text" name="title" id="title" placeholder="Title task..." />
+                </label>
+                <select>
+                    <option value="1">Można przełożyć</option>
+                    <option value="2">Rano wstane i zrobie</option>
+                    <option value="3">Dzisiaj wieczorem</option>
+                    <option value="4">Ponoć ważne</option>
+                    <option value="5">Mówili że na wczoraj!</option>
+                </select>
+                <label for="discription">
+                    <textarea name="discription" id="discription" placeholder="Discription task..."></textarea>
+                </label>
+                <button>Add</button>
+            </form>
+
+        </header>
+
+        <main>
+
+            <div class="grid-task">
+                <h1>Task</h1><h2>Data</h2>
+                <div class="lvl">
+                    <i class="icon-star"></i>
+                    <i class="icon-star"></i>
+                    <i class="icon-star"></i>
+                    <i class="icon-star"></i>
+                    <i class="icon-star"></i>
+                </div>
+                <p class="discription">
+                    Opis
+                </p>
+                <div class="btn">
+                    <button class="btnDelete"><i class="icon-delete"></i></button><!--
+                 --><button class="btnComplete"><i class="icon-done"></i></button><!--
+                 --><button class="btnEdit"><i class="icon-edit"></i></button>
+                </div>
+            </div>
+            <div class="grid-task">
+                <h1>Task</h1><h2>Data</h2>
+                <div class="lvl">
+                    <i class="icon-star"></i>
+                    <i class="icon-star"></i>
+                    <i class="icon-star"></i>
+                    <i class="icon-star"></i>
+                    <i class="icon-star"></i>
+                </div>
+                <p class="discription">
+                    Opis
+                </p>
+                <div class="btn">
+                    <button class="btnDelete"><i class="icon-delete"></i></button><!--
+                 --><button class="btnComplete"><i class="icon-done"></i></button><!--
+                 --><button class="btnEdit"><i class="icon-edit"></i></button>
+                </div>
+            </div>
+
+        </main>
+
+
+        <footer>
+            <button>Delete all complete</button>
+            <i class="icon-settings"></i>
+        </footer>
+
+    </div>
 
 </body>
 </html>
