@@ -1,8 +1,10 @@
-document.addEventListener('DOMContentLoaded', function(e) {
+document.addEventListener('DOMContentLoaded', function() {
 
+    //zmienne do pokazywania i ukrywania formularza
     var btnShowForm = $('i.icon-add'),
         form = $('header form').hide(),
-        formContent = $('header form > div').hide();
+        formContent = $('header form > div').hide(),
+        iconOk = $('form > div i.icon-done').hide();
 
     //event dla pokazywania i ukrywania formularza
     btnShowForm.on('click', function(){
@@ -14,30 +16,32 @@ document.addEventListener('DOMContentLoaded', function(e) {
     });
 
     //walidacja formularza
-    var title = $('#title'),
-        date = $('#date'),S
-        discription = $('#discription'),
-        btnAdd = $('form button'),
-        iconOk = $('form > div i.icon-done').hide();
+    var title = document.querySelector('#title'),
+        date = document.querySelector('#date'),
+        discription = document.querySelector('#discription'),
+        btnAdd = document.querySelector('form button');
 
     var valTitle = false,
         valDate = false,
         valDiscrition = false;
 
-    function validationOK(val1, val2, val3){
+    function validation(val1, val2, val3){
 
         if(val1 && val2 &&  val3){
-            btnAdd.attr('disabled', false);
+            btnAdd.removeAttribute("disabled");
         } else {
-            btnAdd.attr('disabled', 'disabled');
+            btnAdd.setAttribute("disabled", "");
         }
 
     }
+    validation();
 
     //walidacja tytułu
-    title.on('keyup click', function(){
+    title.addEventListener('keyup', function(){
 
-        if(title.val().length < 25 && title.val().length > 5){
+        var length = title.value.length;
+
+        if(length < 25 && length > 5){
             iconOk.eq(0).fadeIn();
             valTitle = true;
         } else {
@@ -45,15 +49,15 @@ document.addEventListener('DOMContentLoaded', function(e) {
             valTitle = false;
         }
 
-        validationOK(valTitle, valDate, valDiscrition);
+        validation(valTitle, valDate, valDiscrition);
 
     })
 
     //walidacja daty
-    date.on('click blur', function(){
+    date.addEventListener('blur', function(){
 
         var dateNow = new Date(), //pobierz dzisiejszą datę
-            deadline = Date.parse($(this).val()); //sprasuj date zaznaczoną
+            deadline = Date.parse(this.value); //sprasuj date zaznaczoną
 
         dateNow = Date.parse(dateNow); //sprasuj datę dzisiejszą
 
@@ -66,15 +70,15 @@ document.addEventListener('DOMContentLoaded', function(e) {
             valDate = false;
         }
 
-        validationOK(valTitle, valDate, valDiscrition);
+        validation(valTitle, valDate, valDiscrition);
 
     })
 
     //walidacja opisu
-    discription.on('keyup', function(){
+    discription.addEventListener('keyup', function(){
 
-        var counter = discription.val().length;
-        $('form > div p').text(counter);
+        var counter = discription.value.length;
+        document.querySelector('form > div p').innerText = counter;
 
         if(counter < 100 && counter > 10 ){
             iconOk.eq(2).fadeIn();
@@ -84,12 +88,9 @@ document.addEventListener('DOMContentLoaded', function(e) {
             valDiscrition = false;
         }
 
-        validationOK(valTitle, valDate, valDiscrition);
+        validation(valTitle, valDate, valDiscrition);
 
     })
-
-    var option = $('option').attr('value');
-    console.log(option);
 
     //tablica  na biekty
     var tasks = [];
@@ -105,23 +106,29 @@ document.addEventListener('DOMContentLoaded', function(e) {
     }
 
 
-    btnAdd.on('submit',function(e){
+    var radioAll = document.querySelectorAll('#boxLvl input'),
+        lvl = 1;
+
+    //sprawdzenie poziomu
+    radioAll.forEach(function(radio){
+        radio.addEventListener('click', function(){
+            lvl = this.value;
+        })
+    })
+
+    btnAdd.addEventListener('click', function(e){
         e.preventDefault();
 
-        var task = new Task(tasks.length, title.val(), date.val(), lvl.val())
+        var task = new Task(tasks.length, title.value, date.value, lvl, discription.value, true)
 
+        for(var key in task){
+            console.log(task[key]);
+        }
 
+        e.preventDefault();
     })
 
 
-    //radio test----
-    var radio = document.querySelectorAll('#boxLvl input');
-
-        radio.forEach(function(el){
-            el.addEventListener('click', function(){
-                console.log(this.value);
-            })
-        })
 
 
 
