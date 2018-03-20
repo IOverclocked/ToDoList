@@ -200,7 +200,6 @@ document.addEventListener('DOMContentLoaded', function() {
         //resetuje lvl
         document.querySelectorAll('#boxLvl > input')[4].checked = true;
 
-
     })
 
     function downloadTasksFromSotrage(){
@@ -212,6 +211,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         localStorage.setItem('todo_list', JSON.stringify( tasks ) );
     }
-    downloadTasksFromSotrage(howManyElments);
+    downloadTasksFromSotrage();
 
 });
