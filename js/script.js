@@ -117,19 +117,78 @@ document.addEventListener('DOMContentLoaded', function() {
     })
 
     btnAdd.addEventListener('click', function(e){
-        e.preventDefault();
 
+        e.preventDefault();
         var task = new Task(tasks.length, title.value, date.value, lvl, discription.value, true)
+        tasks.push(task);
 
-        for(var key in task){
-            console.log(task[key]);
+        var taskDiv = document.createElement('div'),
+            titleH1 = document.createElement('h1'),
+            dateH2 = document.createElement('h2'),
+            lvlDiv = document.createElement('div'),
+            btnDiv = document.createElement('div'),
+            discriptionP = document.createElement('p'),
+            buttons = [],
+            lvlsI = [];
+
+        //tworze buttony
+        for(let i=0; i<3; i++){
+            buttons[i] = document.createElement('button');
         }
+        //dodaje im klasy
+        buttons[0].classList.add('btnDelete');
+        buttons[1].classList.add('btnComplete');
+        buttons[2].classList.add('btnEdit');
+        buttons[0].classList.add('icon-delete');
+        buttons[1].classList.add('icon-done');
+        buttons[2].classList.add('icon-edit');
+        //wrzucam do diva
+        for(let i=0; i<3; i++){
+            btnDiv.appendChild(buttons[i]);
+        }
+        //daje mu klase
+        btnDiv.classList.add('btn');
 
-        e.preventDefault();
+        //tworze pojemniki na ikony i dodaje im klasę
+        //i od razu wrzucam po kolei do głównego diva
+        for(let i=0; i<lvl; i++){
+            lvlsI[i] = document.createElement('i');
+            lvlsI[i].classList.add('icon-star');
+            lvlDiv.appendChild(lvlsI[i]);
+        }
+        //daje mu klasę
+        lvlDiv.classList.add('lvl');
+        discriptionP.classList.add('discription');
+        taskDiv.classList.add('grid-task');
+
+        //przypisuję do opowiednich elementów zawartości
+        titleH1.innerText = task.title;
+        dateH2.innerText = task.date;
+        discriptionP.innerText = task.discription;
+
+        //wrzucam gotowe elementy do głównego kontenera
+        taskDiv.appendChild(titleH1);
+        taskDiv.appendChild(dateH2);
+        taskDiv.appendChild(lvlDiv);
+        taskDiv.appendChild(discriptionP);
+        taskDiv.appendChild(btnDiv);
+
+        //dodaje nowe zadanie do maina
+        document.querySelector('main').appendChild(taskDiv);
+
+        //resetuje wartości z formularza
+        //z pół formularza
+        title.value = "";
+        date.value = "";
+        discription.value = "";
+        //ukrywam ikony
+        for(let i=0; i<3; i++) iconOk.eq(i).hide();
+        //resetuje lvl
+        document.querySelectorAll('#boxLvl > input')[4].checked = true;
+        //zwijam formularz
+        form.slideUp();
+        formContent.slideUp();
+
     })
-
-
-
-
 
 });
