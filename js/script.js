@@ -116,15 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
     })
 
-    btnAdd.addEventListener('click', function(e){
-
-        e.preventDefault();
-
-        var howManyElments = document.querySelectorAll('.grid-task').length;
-        var task = new Task(howManyElments+1, title.value, date.value, lvl, discription.value, true);
-        tasks.push(task);
-
-        //localStorage.setItem('todo_list', JSON.strigify( tasks ) );
+    function addedTask(id, title, date, lvl, discription, done){
 
         var taskDiv = document.createElement('div'),
             titleH1 = document.createElement('h1'),
@@ -166,12 +158,12 @@ document.addEventListener('DOMContentLoaded', function() {
         taskDiv.classList.add('grid-task');
 
         //przypisuję id
-        taskDiv.dataset.id = task.id;
+        taskDiv.dataset.id = id;
 
         //przypisuję do opowiednich elementów zawartości
-        titleH1.innerText = task.title;
-        dateH2.innerText = task.date;
-        discriptionP.innerText = task.discription;
+        titleH1.innerText = title;
+        dateH2.innerText = date;
+        discriptionP.innerText = discription;
 
         //wrzucam gotowe elementy do głównego kontenera
         taskDiv.appendChild(titleH1);
@@ -182,6 +174,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
         //dodaje nowe zadanie do maina
         document.querySelector('main').appendChild(taskDiv);
+    }
+
+    var howManyElments = document.querySelectorAll('.grid-task').length;
+
+    btnAdd.addEventListener('click', function(e){
+
+        e.preventDefault();
+
+        var task = new Task(howManyElments+1, title.value, date.value, lvl, discription.value, true);
+        tasks.push(task);
+
+        localStorage.setItem('todo_list', JSON.stringify( tasks ) );
+
+        addedTask(task.id, task.title, task.date, task.lvl, task.discription, task.done);
 
         //resetuje wartości z formularza
         //z pół formularza
@@ -196,8 +202,18 @@ document.addEventListener('DOMContentLoaded', function() {
         //resetuje lvl
         document.querySelectorAll('#boxLvl > input')[4].checked = true;
 
+
     })
 
-    //tasks = JSON.parse( localStorage.getItem('todo_list') );
-    //console.log(tasks);
+    function downloadTasksFromSotrage(){
+        tasks = JSON.parse( localStorage.getItem('todo_list') );
+
+        for(let i=0; i<tasks.length; i++){
+            console.log(i);
+            addedTask(tasks[i].id, tasks[i].title, tasks[i].date, tasks[i].lvl, tasks[i].discription, tasks[i].done);
+        }
+        localStorage.setItem('todo_list', JSON.stringify( tasks ) );
+    }
+    downloadTasksFromSotrage(howManyElments);
+
 });
