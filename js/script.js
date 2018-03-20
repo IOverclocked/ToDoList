@@ -176,13 +176,11 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('main').appendChild(taskDiv);
     }
 
-    var howManyElments = document.querySelectorAll('.grid-task').length;
-
     btnAdd.addEventListener('click', function(e){
 
         e.preventDefault();
 
-        var task = new Task(howManyElments+1, title.value, date.value, lvl, discription.value, true);
+        var task = new Task(tasks.length, title.value, date.value, lvl, discription.value, true);
         tasks.push(task);
 
         localStorage.setItem('todo_list', JSON.stringify( tasks ) );
