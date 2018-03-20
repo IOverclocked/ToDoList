@@ -181,13 +181,13 @@ document.addEventListener('DOMContentLoaded', function() {
         title.value = "";
         date.value = "";
         discription.value = "";
+        //zwijam formularz
+        form.slideUp();
+        formContent.slideUp();
         //ukrywam ikony
         for(let i=0; i<3; i++) iconOk.eq(i).hide();
         //resetuje lvl
         document.querySelectorAll('#boxLvl > input')[4].checked = true;
-        //zwijam formularz
-        form.slideUp();
-        formContent.slideUp();
 
     })
 
