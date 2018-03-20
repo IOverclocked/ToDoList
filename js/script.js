@@ -119,8 +119,12 @@ document.addEventListener('DOMContentLoaded', function() {
     btnAdd.addEventListener('click', function(e){
 
         e.preventDefault();
-        var task = new Task(tasks.length, title.value, date.value, lvl, discription.value, true)
+
+        var howManyElments = document.querySelectorAll('.grid-task').length;
+        var task = new Task(howManyElments+1, title.value, date.value, lvl, discription.value, true);
         tasks.push(task);
+
+        //localStorage.setItem('todo_list', JSON.strigify( tasks ) );
 
         var taskDiv = document.createElement('div'),
             titleH1 = document.createElement('h1'),
@@ -161,6 +165,9 @@ document.addEventListener('DOMContentLoaded', function() {
         discriptionP.classList.add('discription');
         taskDiv.classList.add('grid-task');
 
+        //przypisuję id
+        taskDiv.dataset.id = task.id;
+
         //przypisuję do opowiednich elementów zawartości
         titleH1.innerText = task.title;
         dateH2.innerText = task.date;
@@ -191,4 +198,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     })
 
+    //tasks = JSON.parse( localStorage.getItem('todo_list') );
+    //console.log(tasks);
 });
