@@ -19,20 +19,26 @@
             <h1>ToDoList</h1>
             <i class="icon-add"></i>
             <form>
-                <label for="title">
-                    <input type="text" name="title" id="title" placeholder="Title task..." />
-                </label>
-                <select>
-                    <option value="1">Można przełożyć</option>
-                    <option value="2">Rano wstane i zrobie</option>
-                    <option value="3">Dzisiaj wieczorem</option>
-                    <option value="4">Ponoć ważne</option>
-                    <option value="5">Mówili że na wczoraj!</option>
-                </select>
-                <label for="discription">
-                    <textarea name="discription" id="discription" placeholder="Discription task..."></textarea>
-                </label>
-                <button>Add</button>
+                <div>
+                    <label for="title">
+                        <input type="text" name="title" id="title" placeholder="Title task..." />
+                    </label>
+                    <label for="date">
+                        <input type="date" name="date" id="date" />
+                    </label>
+                    <select name="lvl">
+                        <option value="1">Można przełożyć</option>
+                        <option value="2">Rano wstane i zrobie</option>
+                        <option value="3">Dzisiaj wieczorem</option>
+                        <option value="4">Ponoć ważne</option>
+                        <option value="5">Mówili że na wczoraj!</option>
+                    </select>
+                    </label>
+                    <label for="discription">
+                        <textarea name="discription" id="discription" placeholder="Discription task..."></textarea>
+                    </label>
+                    <button>Add</button>
+                </div>
             </form>
 
         </header>

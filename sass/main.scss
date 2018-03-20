@@ -25,7 +25,7 @@
 	"footer footer footer footer footer";
 
 	position: relative;
-
+	z-index: 0;
 }
 
 header, main, footer {
@@ -41,6 +41,7 @@ header {
 	position: sticky;
 	top: 0;
 	left: 0;
+	z-index: 10;
 
 	h1 {
 		background-color: rgb(27, 66, 105);
@@ -58,15 +59,47 @@ header {
 		grid-column: 1/3;
 		grid-row: 2/5;
 		padding: 10px;
-		background-color: rgb(21, 34, 41);
+		background-color: rgb(255, 255, 255);
 
-		input, textarea, button, select {
-			@include templateFormEl();
-		}
+		div {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			grid-template-rows: repeat(7, minmax(2em, auto));
 
-		textarea {
-			resize: none;
+			input, textarea, button, select {
+				@include templateFormEl();
+			}
+
+			label[for=title] {
+				grid-column: 1/3;
+			}
+
+			label[for=date] {
+				grid-column: 1/3;
+				grid-row: 2;
+			}
+
+			label[for=discription]{
+				grid-column: 1/3;
+				grid-row: 3/7;
+				textarea {
+					resize: none;
+					height: 90%;
+				}
+			}
+			button {
+				grid-column: 1;
+				grid-row: 7;
+			}
+
+			section {
+				grid-column: 2;
+				grid-row: 7;
+			}
+			display: none;
 		}
+		display: none;
+
 	}
 }
 
@@ -86,6 +119,8 @@ main {
 		"discription discription discription discription discription"
 		"discription discription discription discription discription"
 		"btn btn btn btn btn";
+
+		z-index: 5;
 
 		h1 {
 			border: 1px solid red;
