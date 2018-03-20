@@ -28,13 +28,27 @@
                         <input type="date" name="date" id="date" />
                     </label>
                     <i class="icon-done"></i>
-                    <select>
-                        <option value="1">Można przełożyć</option>
-                        <option value="2">Rano wstane i zrobie</option>
-                        <option value="3">Dzisiaj wieczorem</option>
-                        <option value="4">Ponoć ważne</option>
-                        <option value="5">Mówili że na wczoraj!</option>
-                    </select>
+
+                    <div id="boxLvl">
+
+                        <input type="radio" name="lvl" id="lvl5" value="5" />
+                        <label for="lvl5" class="icon-star"></label>
+
+                        <input type="radio" name="lvl" id="lvl4" value="4" />
+                        <label for="lvl4" class="icon-star"></label>
+
+                        <input type="radio" name="lvl" id="lvl3" value="3" />
+                        <label for="lvl3" class="icon-star"></label>
+
+                        <input type="radio" name="lvl" id="lvl2" value="2" />
+                        <label for="lvl2" class="icon-star"></label>
+
+                        <input type="radio" name="lvl" id="lvl1" value="1" />
+                        <label for="lvl1" class="icon-star"></label>
+
+
+                    </div>
+
                     <label for="discription">
                         <textarea name="discription" id="discription" placeholder="Discription task..."></textarea>
                     </label>
@@ -49,6 +63,7 @@
         <main>
 
             <div class="grid-task">
+
                 <h1>Task</h1><h2>Data</h2>
                 <div class="lvl">
                     <i class="icon-star"></i>
@@ -65,25 +80,9 @@
                  --><button class="btnComplete"><i class="icon-done"></i></button><!--
                  --><button class="btnEdit"><i class="icon-edit"></i></button>
                 </div>
+
             </div>
-            <div class="grid-task">
-                <h1>Task</h1><h2>Data</h2>
-                <div class="lvl">
-                    <i class="icon-star"></i>
-                    <i class="icon-star"></i>
-                    <i class="icon-star"></i>
-                    <i class="icon-star"></i>
-                    <i class="icon-star"></i>
-                </div>
-                <p class="discription">
-                    Opis
-                </p>
-                <div class="btn">
-                    <button class="btnDelete"><i class="icon-delete"></i></button><!--
-                 --><button class="btnComplete"><i class="icon-done"></i></button><!--
-                 --><button class="btnEdit"><i class="icon-edit"></i></button>
-                </div>
-            </div>
+
 
         </main>
 

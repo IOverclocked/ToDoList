@@ -15,8 +15,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
 
     //walidacja formularza
     var title = $('#title'),
-        date = $('#date'),
-        lvl = $('select'),
+        date = $('#date'),S
         discription = $('#discription'),
         btnAdd = $('form button'),
         iconOk = $('form > div i.icon-done').hide();
@@ -89,16 +88,40 @@ document.addEventListener('DOMContentLoaded', function(e) {
 
     })
 
+    var option = $('option').attr('value');
+    console.log(option);
+
+    //tablica  na biekty
+    var tasks = [];
+
+    //konstruktor zadania
+    var Task = function(id, title, date, lvl, discription, done){
+        this.id = id;
+        this.title = title;
+        this.date = date;
+        this.lvl = lvl;
+        this.discription = discription;
+        this.done = done;
+    }
+
+
     btnAdd.on('submit',function(e){
-
-        alert("spoko");
-
         e.preventDefault();
+
+        var task = new Task(tasks.length, title.val(), date.val(), lvl.val())
+
+
     })
 
 
+    //radio test----
+    var radio = document.querySelectorAll('#boxLvl input');
 
-
+        radio.forEach(function(el){
+            el.addEventListener('click', function(){
+                console.log(this.value);
+            })
+        })
 
 
 
