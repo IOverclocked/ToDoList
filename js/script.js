@@ -209,7 +209,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         console.log(e.target);
 
-
         if (e.target.className === "btnDelete icon-delete") {
             console.log("Delete");
         }
@@ -221,7 +220,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
     });
-    
+
 
     function downloadTasksFromSotrage(){
 
@@ -230,7 +229,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if(tasks !== null){
 
             for(let i=0; i<tasks.length; i++){
-                console.log(i);
                 addedTask(tasks[i].id, tasks[i].title, tasks[i].date, tasks[i].lvl, tasks[i].discription, tasks[i].done);
             }
 
