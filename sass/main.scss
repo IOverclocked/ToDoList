@@ -171,8 +171,8 @@ main {
 		grid-auto-rows: minmax(2em, auto);
 
 		grid-template-areas:
-		"title title title title date"
-		"title title title title date"
+		"dateFrom title title title dateTo"
+		"dateFrom title title title dateTo"
 		"lvl lvl lvl lvl lvl"
 		"discription discription discription discription discription"
 		"discription discription discription discription discription"
@@ -188,7 +188,12 @@ main {
 		}
 		h2 {
 			border: 1px solid red;
-			grid-area: date;
+			grid-area: dateTo;
+			@include flexCenter();
+		}
+		h3 {
+			border: 1px solid red;
+			grid-area: dateFrom;
 			@include flexCenter();
 		}
 		.lvl {

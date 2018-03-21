@@ -102,31 +102,31 @@ document.addEventListener('DOMContentLoaded', function() {
             lvl = this.value;
         })
     })
-    
-    function timer() {      // funkcja daty
-      
-        var time = new Date();
-      
-        var day = time.getDate();
+
+    function dateNow() {      // funkcja daty
+
+        var time = new Date(),
+            month = time.getMonth()+1,
+            day = time.getDate(),
+            year = time.getFullYear();
+
         if(day < 10) {
             day = "0" + day;
         }
-      
-        var month = time.getMonth()+1;
         if (month < 10) {
             month = "0" + month
         }
-        
-        var year = time.getFullYear();
-        var wholeDate = day + "/" + month + "/" + year;
+
+        var wholeDate = day + "-" + month + "-" + year;
+        return wholeDate;
     }
-    console.log(timer());
 
     function addedTask(id, title, date, lvl, discription, done){
 
         var taskDiv = document.createElement('div'),
             titleH1 = document.createElement('h1'),
             dateH2 = document.createElement('h2'),
+            dateH3 = document.createElement('h3'),
             lvlDiv = document.createElement('div'),
             btnDiv = document.createElement('div'),
             discriptionP = document.createElement('p'),
@@ -169,11 +169,13 @@ document.addEventListener('DOMContentLoaded', function() {
         //przypisuję do opowiednich elementów zawartości
         titleH1.innerText = title;
         dateH2.innerText = date;
+        dateH3.innerText = dateNow();
         discriptionP.innerText = discription;
 
         //wrzucam gotowe elementy do głównego kontenera
         taskDiv.appendChild(titleH1);
         taskDiv.appendChild(dateH2);
+        taskDiv.appendChild(dateH3);
         taskDiv.appendChild(lvlDiv);
         taskDiv.appendChild(discriptionP);
         taskDiv.appendChild(btnDiv);
@@ -187,10 +189,11 @@ document.addEventListener('DOMContentLoaded', function() {
     var tasks = [];
 
     //konstruktor zadania
-    var Task = function(id, title, date, lvl, discription, done){
+    var Task = function(id, title, dateTo, dateFrom, lvl, discription, done){
         this.id = id;
         this.title = title;
-        this.date = date;
+        this.dateTo = dateTo;
+        this.dateFrom = dateFrom;
         this.lvl = lvl;
         this.discription = discription;
         this.done = done;
@@ -200,12 +203,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
         e.preventDefault();
 
-        var task = new Task(tasks.length, title.value, date.value, lvl, discription.value, true);
+        var task = new Task(tasks.length, title.value, dateNow(), date.value, lvl, discription.value, true);
         tasks.push(task);
 
         localStorage.setItem('todo_list', JSON.stringify( tasks ) );
 
-        addedTask(task.id, task.title, task.date, task.lvl, task.discription, task.done);
+        addedTask(task.id, task.title, task.dateTo, task.dateFrom, task.lvl, task.discription, task.done);
 
         //resetuje wartości z formularza
         //z pół formularza
@@ -248,7 +251,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if(tasks !== null){
 
             for(let i=0; i<tasks.length; i++){
-                addedTask(tasks[i].id, tasks[i].title, tasks[i].date, tasks[i].lvl, tasks[i].discription, tasks[i].done);
+                addedTask(tasks[i].id, tasks[i].title, tasks[i].dateTo, tasks[i].dataFrom, tasks[i].lvl, tasks[i].discription, tasks[i].done);
             }
 
         } else {
