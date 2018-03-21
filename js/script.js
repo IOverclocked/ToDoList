@@ -57,12 +57,13 @@ document.addEventListener('DOMContentLoaded', function() {
     date.addEventListener('blur', function(){
 
         var dateNow = new Date(), //pobierz dzisiejszą datę
-            deadline = Date.parse(this.value); //sprasuj date zaznaczoną
+            deadline = Date.parse(this.value, 'dd.mm.rrrr'); //sprasuj date zaznaczoną
 
         dateNow = Date.parse(dateNow); //sprasuj datę dzisiejszą
 
-        //sprawdź czy ktoś nie zaznaczył terminu na dzisiaj lub wczoraj;
-        if((deadline-dateNow) > 0){
+        //sprawdź czy ktoś nie zaznaczył terminu na dzisiaj lub wczoraj,
+        //oraz długości daty
+        if((deadline-dateNow) > 0 && this.value.length === 10){
             iconOk.eq(1).fadeIn();
             valDate = true;
         } else {
@@ -91,20 +92,6 @@ document.addEventListener('DOMContentLoaded', function() {
         validation(valTitle, valDate, valDiscrition);
 
     })
-
-    //tablica  na biekty
-    var tasks = [];
-
-    //konstruktor zadania
-    var Task = function(id, title, date, lvl, discription, done){
-        this.id = id;
-        this.title = title;
-        this.date = date;
-        this.lvl = lvl;
-        this.discription = discription;
-        this.done = done;
-    }
-
 
     var radioAll = document.querySelectorAll('#boxLvl input'),
         lvl = 1;
@@ -176,12 +163,29 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('main').appendChild(taskDiv);
     }
 
+
+    //tablica  na biekty
+    var tasks = [];
+
+    //konstruktor zadania
+    var Task = function(id, title, date, lvl, discription, done){
+        this.id = id;
+        this.title = title;
+        this.date = date;
+        this.lvl = lvl;
+        this.discription = discription;
+        this.done = done;
+    }
+
     btnAdd.addEventListener('click', function(e){
 
         e.preventDefault();
 
         var task = new Task(tasks.length, title.value, date.value, lvl, discription.value, true);
+
+        console.log(task);
         tasks.push(task);
+        console.log(tasks);
 
         localStorage.setItem('todo_list', JSON.stringify( tasks ) );
 
@@ -203,14 +207,22 @@ document.addEventListener('DOMContentLoaded', function() {
     })
 
     function downloadTasksFromSotrage(){
+
         tasks = JSON.parse( localStorage.getItem('todo_list') );
 
-        for(let i=0; i<tasks.length; i++){
-            console.log(i);
-            addedTask(tasks[i].id, tasks[i].title, tasks[i].date, tasks[i].lvl, tasks[i].discription, tasks[i].done);
+        if(tasks !== null){
+
+            for(let i=0; i<tasks.length; i++){
+                console.log(i);
+                addedTask(tasks[i].id, tasks[i].title, tasks[i].date, tasks[i].lvl, tasks[i].discription, tasks[i].done);
+            }
+        } else {
+            tasks = [];
         }
+
         localStorage.setItem('todo_list', JSON.stringify( tasks ) );
     }
+
     downloadTasksFromSotrage();
 
 });
