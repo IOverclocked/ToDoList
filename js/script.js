@@ -229,10 +229,36 @@ document.addEventListener('DOMContentLoaded', function() {
     var body = document.querySelector("body");
     body.addEventListener("click", function (e) {
 
-        console.log(e.target);
-
         if (e.target.className === "btnDelete icon-delete") {
-            console.log("Delete");
+
+            var taskEl = document.querySelectorAll('.grid-task'),
+                main = document.querySelector('main'),
+                task = e.target.parentElement.parentElement,
+                taskId = task.dataset.id;
+
+            for(let i=0; i<tasks.length; i++){
+
+                if(tasks[i].id == taskId){
+
+                    //kasuje obiekt w tablicy
+                    delete tasks[i];
+                    //obiekt skasowany ale w tablicy jest puste miejsce
+                    //trzeba je usunąć. Do mojej tablicy przypisuję na
+                    //nowo wszystkie elemnety pomijając pusty
+                    tasks = tasks.filter(function(el){
+                        return (el !== 'empty');
+                    })
+                    //kasuję html z taskiem
+                    main.removeChild(taskEl[i]);
+
+                }
+
+            }
+
+            console.log(tasks);
+            //zapisuję zmiany w pamięci
+            localStorage.setItem('todo_list', JSON.stringify( tasks ) );
+
         }
         if (e.target.className === "btnComplete icon-ok") {
             console.log("Complete");
