@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return wholeDate;
     }
 
-    function addedTask(id, title, date, lvl, discription, done){
+    function addedTask(id, title, dateFrom, dateTo, lvl, discription, done){
 
         var taskDiv = document.createElement('div'),
             titleH1 = document.createElement('h1'),
@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         //przypisuję do opowiednich elementów zawartości
         titleH1.innerText = title;
-        dateH2.innerText = date;
+        dateH2.innerText = dateTo;
         dateH3.innerText = dateNow();
         discriptionP.innerText = discription;
 
@@ -189,11 +189,11 @@ document.addEventListener('DOMContentLoaded', function() {
     var tasks = [];
 
     //konstruktor zadania
-    var Task = function(id, title, dateTo, dateFrom, lvl, discription, done){
+    var Task = function(id, title, dateFrom, dateTo, lvl, discription, done){
         this.id = id;
         this.title = title;
-        this.dateTo = dateTo;
         this.dateFrom = dateFrom;
+        this.dateTo = dateTo;
         this.lvl = lvl;
         this.discription = discription;
         this.done = done;
@@ -208,7 +208,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         localStorage.setItem('todo_list', JSON.stringify( tasks ) );
 
-        addedTask(task.id, task.title, task.dateTo, task.dateFrom, task.lvl, task.discription, task.done);
+        addedTask(task.id, task.title, task.dateFrom, task.dateTo, task.lvl, task.discription, task.done);
 
         //resetuje wartości z formularza
         //z pół formularza
@@ -251,7 +251,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if(tasks !== null){
 
             for(let i=0; i<tasks.length; i++){
-                addedTask(tasks[i].id, tasks[i].title, tasks[i].dateTo, tasks[i].dataFrom, tasks[i].lvl, tasks[i].discription, tasks[i].done);
+                addedTask(tasks[i].id, tasks[i].title, tasks[i].dateFrom, tasks[i].dateTo, tasks[i].lvl, tasks[i].discription, tasks[i].done);
             }
 
         } else {
