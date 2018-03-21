@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function downloadTasksFromSotrage(){
         tasks = JSON.parse( localStorage.getItem('todo_list') );
 
-        for(let i=0; i<tasks.length; i++){
+        for(let i=0; i<tasks; i++){
             console.log(i);
             addedTask(tasks[i].id, tasks[i].title, tasks[i].date, tasks[i].lvl, tasks[i].discription, tasks[i].done);
         }
@@ -213,4 +213,20 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     downloadTasksFromSotrage();
 
+
+    function timer () {      // funkcja daty
+        var time = new Date();
+        var day = time.getDate();{
+            if (day < 10) {
+            day = "0" + day;
+            }}
+        var month = time.getMonth()+1;{
+            if (month < 10) {
+            month = "0" + month
+            }
+        }
+        var year = time.getFullYear();
+        var wholeDate = day + "/" + month + "/" + year;
+    }
+    timer();
 });
