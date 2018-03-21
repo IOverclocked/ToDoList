@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
         buttons[1].classList.add('btnComplete');
         buttons[2].classList.add('btnEdit');
         buttons[0].classList.add('icon-delete');
-        buttons[1].classList.add('icon-done');
+        buttons[1].classList.add('icon-ok');
         buttons[2].classList.add('icon-edit');
         //wrzucam do diva
         for(let i=0; i<3; i++){
@@ -182,10 +182,7 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
 
         var task = new Task(tasks.length, title.value, date.value, lvl, discription.value, true);
-
-        console.log(task);
         tasks.push(task);
-        console.log(tasks);
 
         localStorage.setItem('todo_list', JSON.stringify( tasks ) );
 
@@ -216,6 +213,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log(i);
                 addedTask(tasks[i].id, tasks[i].title, tasks[i].date, tasks[i].lvl, tasks[i].discription, tasks[i].done);
             }
+
         } else {
             tasks = [];
         }
