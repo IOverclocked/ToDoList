@@ -57,12 +57,13 @@ document.addEventListener('DOMContentLoaded', function() {
     date.addEventListener('blur', function(){
 
         var dateNow = new Date(), //pobierz dzisiejszą datę
-            deadline = Date.parse(this.value); //sprasuj date zaznaczoną
+            deadline = Date.parse(this.value, 'dd.mm.rrrr'); //sprasuj date zaznaczoną
 
         dateNow = Date.parse(dateNow); //sprasuj datę dzisiejszą
 
-        //sprawdź czy ktoś nie zaznaczył terminu na dzisiaj lub wczoraj;
-        if((deadline-dateNow) > 0){
+        //sprawdź czy ktoś nie zaznaczył terminu na dzisiaj lub wczoraj,
+        //oraz długości daty
+        if((deadline-dateNow) > 0 && this.value.length === 10){
             iconOk.eq(1).fadeIn();
             valDate = true;
         } else {
@@ -92,20 +93,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     })
 
-    //tablica  na biekty
-    var tasks = [];
-
-    //konstruktor zadania
-    var Task = function(id, title, date, lvl, discription, done){
-        this.id = id;
-        this.title = title;
-        this.date = date;
-        this.lvl = lvl;
-        this.discription = discription;
-        this.done = done;
-    }
-
-
     var radioAll = document.querySelectorAll('#boxLvl input'),
         lvl = 1;
 
@@ -115,6 +102,25 @@ document.addEventListener('DOMContentLoaded', function() {
             lvl = this.value;
         })
     })
+    
+    function timer() {      // funkcja daty
+      
+        var time = new Date();
+      
+        var day = time.getDate();
+        if(day < 10) {
+            day = "0" + day;
+        }
+      
+        var month = time.getMonth()+1;
+        if (month < 10) {
+            month = "0" + month
+        }
+        
+        var year = time.getFullYear();
+        var wholeDate = day + "/" + month + "/" + year;
+    }
+    console.log(timer());
 
     function addedTask(id, title, date, lvl, discription, done){
 
@@ -136,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function() {
         buttons[1].classList.add('btnComplete');
         buttons[2].classList.add('btnEdit');
         buttons[0].classList.add('icon-delete');
-        buttons[1].classList.add('icon-done');
+        buttons[1].classList.add('icon-ok');
         buttons[2].classList.add('icon-edit');
         //wrzucam do diva
         for(let i=0; i<3; i++){
@@ -176,6 +182,20 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('main').appendChild(taskDiv);
     }
 
+
+    //tablica  na biekty
+    var tasks = [];
+
+    //konstruktor zadania
+    var Task = function(id, title, date, lvl, discription, done){
+        this.id = id;
+        this.title = title;
+        this.date = date;
+        this.lvl = lvl;
+        this.discription = discription;
+        this.done = done;
+    }
+
     btnAdd.addEventListener('click', function(e){
 
         e.preventDefault();
@@ -202,31 +222,43 @@ document.addEventListener('DOMContentLoaded', function() {
 
     })
 
+    // Przyciski: delete, complete, edit
+    var body = document.querySelector("body");
+    body.addEventListener("click", function (e) {
+
+        console.log(e.target);
+
+
+        if (e.target.className === "btnDelete icon-delete") {
+            console.log("Delete");
+        }
+        if (e.target.className === "btnComplete icon-ok") {
+            console.log("Complete");
+        }
+        if (e.target.className === "btnEdit icon-edit"){
+            console.log("Edit");
+        }
+
+    });
+    
+
     function downloadTasksFromSotrage(){
+
         tasks = JSON.parse( localStorage.getItem('todo_list') );
 
-        for(let i=0; i<tasks; i++){
-            console.log(i);
-            addedTask(tasks[i].id, tasks[i].title, tasks[i].date, tasks[i].lvl, tasks[i].discription, tasks[i].done);
+        if(tasks !== null){
+
+            for(let i=0; i<tasks.length; i++){
+                addedTask(tasks[i].id, tasks[i].title, tasks[i].date, tasks[i].lvl, tasks[i].discription, tasks[i].done);
+            }
+
+        } else {
+            tasks = [];
         }
+
         localStorage.setItem('todo_list', JSON.stringify( tasks ) );
     }
+
     downloadTasksFromSotrage();
 
-
-    function timer () {      // funkcja daty
-        var time = new Date();
-        var day = time.getDate();{
-            if (day < 10) {
-            day = "0" + day;
-            }}
-        var month = time.getMonth()+1;{
-            if (month < 10) {
-            month = "0" + month
-            }
-        }
-        var year = time.getFullYear();
-        var wholeDate = day + "/" + month + "/" + year;
-    }
-    timer();
 });

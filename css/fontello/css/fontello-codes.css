@@ -1,7 +1,10 @@
 
-.icon-add:before { content: '\e800'; } /* '' */
-.icon-settings:before { content: '\e801'; } /* '' */
+.icon-star:before { content: '\e800'; } /* '' */
+.icon-add:before { content: '\e801'; } /* '' */
 .icon-delete:before { content: '\e802'; } /* '' */
 .icon-edit:before { content: '\e803'; } /* '' */
 .icon-done:before { content: '\e804'; } /* '' */
-.icon-star:before { content: '\e805'; } /* '' */
+.icon-ok:before { content: '\e805'; } /* '' */
+.icon-settings:before { content: '\e806'; } /* '' */
+.icon-sort-up:before { content: '\f160'; } /* '' */
+.icon-sort-down:before { content: '\f161'; } /* '' */
