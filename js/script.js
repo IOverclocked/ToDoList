@@ -203,6 +203,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
     })
 
+    // Przyciski: delete, complete, edit
+    var body = document.querySelector("body");
+    body.addEventListener("click", function (e) {
+
+        console.log(e.target);
+
+
+        if (e.target.className === "btnDelete icon-delete") {
+            console.log("Delete");
+        }
+        if (e.target.className === "btnComplete icon-ok") {
+            console.log("Complete");
+        }
+        if (e.target.className === "btnEdit icon-edit"){
+            console.log("Edit");
+        }
+
+    });
+    
+
     function downloadTasksFromSotrage(){
 
         tasks = JSON.parse( localStorage.getItem('todo_list') );
@@ -222,5 +242,4 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     downloadTasksFromSotrage();
-
 });
