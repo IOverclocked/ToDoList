@@ -203,7 +203,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         e.preventDefault();
 
-        var task = new Task(tasks.length, title.value, dateNow(), date.value, lvl, discription.value, true);
+        var task = new Task(tasks.length, title.value, dateNow(), date.value, lvl, discription.value, false);
         tasks.push(task);
 
         localStorage.setItem('todo_list', JSON.stringify( tasks ) );
