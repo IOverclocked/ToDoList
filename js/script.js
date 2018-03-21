@@ -202,10 +202,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     })
 
+    var body = document.querySelector("body").addEventListener("click", function (e) {
+
+        console.log(e.target);
+        
+    });
+
+    
+
     function downloadTasksFromSotrage(){
         tasks = JSON.parse( localStorage.getItem('todo_list') );
 
-        for(let i=0; i<tasks.length; i++){
+        for(let i=0; i<tasks.length+1; i++){
             console.log(i);
             addedTask(tasks[i].id, tasks[i].title, tasks[i].date, tasks[i].lvl, tasks[i].discription, tasks[i].done);
         }
