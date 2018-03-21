@@ -202,23 +202,42 @@ document.addEventListener('DOMContentLoaded', function() {
 
     })
 
-    var body = document.querySelector("body").addEventListener("click", function (e) {
+    // Przyciski: delete, complete, edit
+    var body = document.querySelector("body");
+    body.addEventListener("click", function (e) {
 
         console.log(e.target);
-        
-    });
 
+
+        if (e.target.className === "btnDelete icon-delete") {
+            console.log("Delete");
+        }
+        if (e.target.className === "btnComplete icon-done") {
+            console.log("Complete");
+        }
+        if (e.target.className === "btnEdit icon-edit"){
+            console.log("Edit");
+        }
+
+    });
     
 
     function downloadTasksFromSotrage(){
+
         tasks = JSON.parse( localStorage.getItem('todo_list') );
 
-        for(let i=0; i<tasks.length+1; i++){
-            console.log(i);
-            addedTask(tasks[i].id, tasks[i].title, tasks[i].date, tasks[i].lvl, tasks[i].discription, tasks[i].done);
+        if(tasks !== null){
+
+            for(let i=0; i<tasks.length; i++){
+                console.log(i);
+                addedTask(tasks[i].id, tasks[i].title, tasks[i].date, tasks[i].lvl, tasks[i].discription, tasks[i].done);
+            }
+        } else {
+            tasks = [];
         }
+
         localStorage.setItem('todo_list', JSON.stringify( tasks ) );
     }
-    downloadTasksFromSotrage();
 
+    downloadTasksFromSotrage();
 });
