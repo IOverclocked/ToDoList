@@ -282,7 +282,8 @@ document.addEventListener('DOMContentLoaded', function() {
             var taskEl = document.querySelectorAll('.grid-task'),
                 main = document.querySelector('main'),
                 task = e.target.parentElement.parentElement,
-                taskId = task.dataset.id;
+                taskId = task.dataset.id,
+                h1 = task.querySelector("h1");
 
 
             for(let i=0; i<tasks.length; i++){
@@ -292,21 +293,18 @@ document.addEventListener('DOMContentLoaded', function() {
                     if(tasks[i].done == false){
                         tasks[i].done = true;
                         task.style.backgroundColor = "green";
+                        h1.style.textDecoration = "line-through";
                     } else {
                         tasks[i].done = false;
-                        task.style.backgroundColor = "yellow";
+                        task.style.backgroundColor = "transparent";
+                        h1.style.textDecoration = "none";
                     }
-
                 }
             }
-        }
-            /*
-            var discription = document.querySelector(".discription");
 
-            discription.style.backgroundColor = "green";
-            discription.style.textDecoration = "line-through";
-            Task.done = true;
-            */
+            localStorage.setItem('todo_list', JSON.stringify( tasks ) );
+
+        }
 
         if (e.target.className === "btnEdit icon-edit"){
             console.log("Edit");
