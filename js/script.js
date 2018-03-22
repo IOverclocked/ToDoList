@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function() {
         //przypisuję do opowiednich elementów zawartości
         titleH1.innerText = title;
         dateH2.innerText = dateTo;
-        dateH3.innerText = dateNow();
+        dateH3.innerText = dateFrom;
         discriptionP.innerText = discription;
 
         //wrzucam gotowe elementy do głównego kontenera
@@ -269,24 +269,87 @@ document.addEventListener('DOMContentLoaded', function() {
 
     });
 
+    function addAllTask(){
+
+        for(let i=0; i<tasks.length; i++){
+            addedTask(tasks[i].id, tasks[i].title, tasks[i].dateFrom, tasks[i].dateTo, tasks[i].lvl, tasks[i].discription, tasks[i].done);
+        }
+
+    }
 
     function downloadTasksFromSotrage(){
 
+        //pobieram z pamięci
         tasks = JSON.parse( localStorage.getItem('todo_list') );
 
         if(tasks !== null){
 
-            for(let i=0; i<tasks.length; i++){
-                addedTask(tasks[i].id, tasks[i].title, tasks[i].dateFrom, tasks[i].dateTo, tasks[i].lvl, tasks[i].discription, tasks[i].done);
-            }
+            addAllTask();
 
         } else {
             tasks = [];
         }
 
-        localStorage.setItem('todo_list', JSON.stringify( tasks ) );
     }
 
     downloadTasksFromSotrage();
+
+    //---------------------------- Sortowanie ---------------------------------//
+
+    var btnSort = document.querySelector('header > i');
+
+    function clearList(){
+
+        var main = document.querySelector('main'),
+            allTask = document.querySelectorAll('.grid-task');
+
+        for(let i=0; i<allTask.length; i++){
+            main.removeChild(allTask[i]);
+        }
+
+    }
+
+    //zmienna sterująca
+    var sort = false;
+
+    function sortDown(){
+
+        tasks.sort(function(min, max){
+            return max.lvl - min.lvl;
+        });
+
+        sort = true;
+
+        btnSort.classList.remove('icon-sort-down');
+        btnSort.classList.add('icon-sort-up');
+
+    }
+
+    function sortUp(){
+
+        tasks.sort(function(min, max){
+            return min.lvl - max.lvl;
+        });
+
+        sort = false;
+
+        btnSort.classList.remove('icon-sort-up');
+        btnSort.classList.add('icon-sort-down');
+    }
+
+    btnSort.addEventListener('click', function(){
+
+        clearList();
+
+        if(sort === false) {
+            sortDown();
+        } else {
+            sortUp();
+        }
+
+        addAllTask();
+
+    })
+
 
 });
