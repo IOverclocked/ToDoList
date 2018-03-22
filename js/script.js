@@ -262,7 +262,28 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         if (e.target.className === "btnComplete icon-ok") {
             console.log("Complete");
+
+            var discription = document.querySelector(".discription");
+
+            // nie wiem jak zrobić, aby po ponownym kliknięciu kolor i przekreślenie znikły
+            if (e.target.style != true) {
+                discription.style.backgroundColor = "green";
+                discription.style.textDecoration = "line-through";
+                Task.done = true;
+            } else {
+                discription.style.backgroundColor = "none";
+                discription.style.textDecoration = "none";
+                Task.done = false;
+            }
         }
+            /*
+            var discription = document.querySelector(".discription");
+
+            discription.style.backgroundColor = "green";
+            discription.style.textDecoration = "line-through";
+            Task.done = true;
+            */
+
         if (e.target.className === "btnEdit icon-edit"){
             console.log("Edit");
         }
