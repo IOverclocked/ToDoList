@@ -219,10 +219,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
         e.preventDefault();
 
-        var task = new Task(tasks.length, title.value, dateNow(), date.value, lvl, discription.value, true);
+        var task = new Task(tasks.length, title.value, dateNow(), date.value, lvl, discription.value, false);
         tasks.push(task);
 
-        localStorage.setItem('todo_list', JSON.stringify( tasks ) );
+        localStorage.setItem('todo_list', JSON.stringify(tasks));
 
         addedTask(task.id, task.title, task.dateFrom, task.dateTo, task.lvl, task.discription, task.done);
 
@@ -259,8 +259,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     //kasuje obiekt w tablicy
                     delete tasks[i];
 
-                    tasks = tasks.filter(function(el){
-                        return (el !== 'empty');
+                    tasks = tasks.filter(function(task){
+                        return (task !== 'empty');
                     })
                     //kasuję html z taskiem
                     main.removeChild(taskEl[i]);
@@ -271,7 +271,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             console.log(tasks);
             //zapisuję zmiany w pamięci
-            localStorage.setItem('todo_list', JSON.stringify( tasks ) );
+            localStorage.setItem('todo_list', JSON.stringify(tasks));
 
         }
         if (e.target.className === "btnComplete icon-ok") {
@@ -299,7 +299,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
 
-            localStorage.setItem('todo_list', JSON.stringify( tasks ) );
+            localStorage.setItem('todo_list', JSON.stringify(tasks));
 
         }
 
@@ -320,7 +320,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function downloadTasksFromSotrage(){
 
         //pobieram z pamięci
-        tasks = JSON.parse( localStorage.getItem('todo_list') );
+        tasks = JSON.parse( localStorage.getItem('todo_list'));
 
         if(tasks !== null){
 
@@ -427,4 +427,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
     }
 
+    var btnAllDeleteDone = document.querySelector('footer > button');
+
+    btnAllDeleteDone.addEventListener('click', function(){
+
+        var elAllTasks = document.querySelectorAll('.grid-task'),
+            main = document.querySelector('main');
+
+        for(let i=0; i<tasks.length; i++){
+            if(tasks[i].done == true){
+                delete tasks[i];
+                main.removeChild(elAllTasks[i]);
+            }
+        }
+
+        tasks = tasks.filter(function(task){
+            return (task !== 'empty');
+        })
+
+        localStorage.setItem('todo_list', JSON.stringify(tasks));
+    })
 });
