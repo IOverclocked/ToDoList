@@ -263,26 +263,32 @@ document.addEventListener('DOMContentLoaded', function() {
         if (e.target.className === "btnComplete icon-ok") {
             console.log("Complete");
 
-            var discription = document.querySelector(".discription");
+            var taskEl = document.querySelectorAll('.grid-task'),
+                main = document.querySelector('main'),
+                task = e.target.parentElement.parentElement,
+                taskId = task.dataset.id,
+                h1 = task.querySelector("h1");
 
-            // nie wiem jak zrobić, aby po ponownym kliknięciu kolor i przekreślenie znikły
-            if (e.target.style != true) {
-                discription.style.backgroundColor = "green";
-                discription.style.textDecoration = "line-through";
-                Task.done = true;
-            } else {
-                discription.style.backgroundColor = "none";
-                discription.style.textDecoration = "none";
-                Task.done = false;
+
+            for(let i=0; i<tasks.length; i++){
+
+                if(tasks[i].id == taskId){
+
+                    if(tasks[i].done == false){
+                        tasks[i].done = true;
+                        task.style.backgroundColor = "green";
+                        h1.style.textDecoration = "line-through";
+                    } else {
+                        tasks[i].done = false;
+                        task.style.backgroundColor = "transparent";
+                        h1.style.textDecoration = "none";
+                    }
+                }
             }
-        }
-            /*
-            var discription = document.querySelector(".discription");
 
-            discription.style.backgroundColor = "green";
-            discription.style.textDecoration = "line-through";
-            Task.done = true;
-            */
+            localStorage.setItem('todo_list', JSON.stringify( tasks ) );
+
+        }
 
         if (e.target.className === "btnEdit icon-edit"){
             console.log("Edit");
