@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', function() {
             titleH1.style.textDecoration = 'none';
         }
         //dodaje nowe zadanie do maina
-        document.querySelector('main').appendChild(taskDiv);
+        $('main').hide().append(taskDiv).slideDown('slow');
     }
 
 
@@ -349,7 +349,8 @@ document.addEventListener('DOMContentLoaded', function() {
     //---------------------------- Sortowanie ---------------------------------//
 
     var btnSortLvl = document.querySelector('.menu > ul > li:nth-child(1)'),
-        btnSortDone = document.querySelector('.menu > ul > li:nth-child(2)');
+        btnSortDone = document.querySelector('.menu > ul > li:nth-child(2)'),
+        btnShowAll = document.querySelector('.menu > ul > li:nth-child(3)');
 
     btnSortLvl.addEventListener('click', function(){
 
@@ -364,8 +365,13 @@ document.addEventListener('DOMContentLoaded', function() {
         addAllTask();
 
     })
+
     btnSortDone.addEventListener('click', function(){
         showHideDone();
+    })
+
+    btnShowAll.addEventListener('click', function(){
+        showAllTask();
     })
 
     //funkcja czyszczonca listę
@@ -406,17 +412,21 @@ document.addEventListener('DOMContentLoaded', function() {
         btnSortLvl.innerText = "Sortuj rosnąco";
     }
 
+    function showAllTask(){
+
+        var elAllTasks = $('.grid-task');
+        for(let i=0; i<tasks.length; i++){
+            elAllTasks.eq(i).hide();
+        }
+        elAllTasks.slideDown();
+
+    }
+
     function showHide(bool, str){
 
-        var elAllTasks = document.querySelectorAll('.grid-task'),
+        var elAllTasks = $('.grid-task').hide(),
             done = false,
             work = false;
-
-        function showAll(){
-            for(let i=0; i<tasks.length; i++){
-                elAllTasks[i].style.display = "grid";
-            }
-        }
 
         for(let i=0; i<tasks.length; i++){
             if(tasks[i].done === true){
@@ -430,22 +440,20 @@ document.addEventListener('DOMContentLoaded', function() {
             for(let i=0; i<tasks.length; i++){
 
                 if(tasks[i].done !== bool){
-                    elAllTasks[i].style.display = "none";
+                    elAllTasks.eq(i).slideDown();
                     btnSortDone.innerText = str;
                 } else {
-                    elAllTasks[i].style.display = "grid";
+                    elAllTasks.eq(i).hide();
                 }
 
             }
         } else if (done && !work) {
-            alert('Wszystkie zadania są wykonane');
             btnSortDone.innerText = "Do zrobienia";
-            showAll();
+            showAllTask();
 
         } else if (work && !done) {
-            alert("Żadne zadanie nie zostało skończone!");
             btnSortDone.innerText = "Zakończone";
-            showAll();
+            showAllTask();
         }
 
     }
