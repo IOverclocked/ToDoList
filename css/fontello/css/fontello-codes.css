@@ -1,10 +1,9 @@
 
-.icon-star:before { content: '\e800'; } /* '' */
-.icon-add:before { content: '\e801'; } /* '' */
-.icon-delete:before { content: '\e802'; } /* '' */
-.icon-edit:before { content: '\e803'; } /* '' */
-.icon-done:before { content: '\e804'; } /* '' */
-.icon-ok:before { content: '\e805'; } /* '' */
-.icon-settings:before { content: '\e806'; } /* '' */
-.icon-sort-up:before { content: '\f160'; } /* '' */
-.icon-sort-down:before { content: '\f161'; } /* '' */
+.icon-delete:before { content: '\e800'; } /* '' */
+.icon-edit:before { content: '\e801'; } /* '' */
+.icon-done:before { content: '\e802'; } /* '' */
+.icon-settings:before { content: '\e803'; } /* '' */
+.icon-lvl:before { content: '\e804'; } /* '' */
+.icon-menu:before { content: '\f0c9'; } /* '' */
+.icon-add:before { content: '\f0fe'; } /* '' */
+.icon-ok:before { content: '\f14a'; } /* '' */

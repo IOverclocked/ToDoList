@@ -51,16 +51,28 @@ header {
 	left: 0;
 	z-index: 10;
 
-	i.icon-sort-up {
-		background-color: map-get($fontColors,DarkGrey);
-		color:map-get($fontColors,OffWhite);
-	}
-	i.icon-sort-down {
-		background-color: map-get($fontColors,DarkGrey);
+	i.icon-menu {
+    background-color: map-get($fontColors,DarkGrey);
 		color:map-get($fontColors,OffWhite);
 		grid-column: 1;
 		grid-row: 1;
 		@include flexCenter();
+	}
+
+	.menu {
+		position: absolute;
+		top: 57px;
+		left: 0;
+		width: 100%;
+		z-index: 15;
+		background-color: red;
+		ul {
+			list-style: none;
+			li {
+				padding: 5px;
+				text-align: center;
+			}
+		}
 	}
 
 	h1 {
@@ -94,7 +106,7 @@ header {
 		grid-row: 2/5;
 		padding: 10px;
 		background-color: rgb(255, 255, 255);
-
+		
 		div {
 
 			display: grid;
@@ -187,6 +199,7 @@ header {
 
 	}
 }
+
 
 main {
 	grid-area: main;
@@ -304,6 +317,12 @@ footer {
 		width:90%;
 	}
 
+	position: sticky;
+	bottom: 0;
+	left: 0;
+
+	z-index: 5;
+
 	button {
 		grid-area:deleteAllbutton;
 		background-color:lightcoral;
@@ -326,10 +345,25 @@ footer {
 		width:90%;
 		position:relative;
 		justify-self:center;
-
-		@include flexCenter();
+		grid-column: 1;
+		z-index: 10;
 	}
 
+	div {
+		background-color: red;
+		position: absolute;
+		right: 0;
+		bottom: 30px;
+		width: 100%;
+		ul {
+			list-style: none;
+			width: 100%;
+			li {
+				padding: 5px;
+				text-align: center;
+			}
+		}
+	}
 }
 
 //button styling
