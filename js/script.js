@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', function() {
             taskDiv.style.backgroundColor = 'green';
             titleH1.style.textDecoration = 'line-through';
         } else {
-            taskDiv.style.backgroundColor = 'yellow';
+            taskDiv.style.backgroundColor = "transparent";
             titleH1.style.textDecoration = 'none';
         }
         //dodaje nowe zadanie do maina
@@ -258,9 +258,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     //kasuje obiekt w tablicy
                     delete tasks[i];
-                    //obiekt skasowany ale w tablicy jest puste miejsce
-                    //trzeba je usunąć. Do mojej tablicy przypisuję na
-                    //nowo wszystkie elemnety pomijając pusty
+
                     tasks = tasks.filter(function(el){
                         return (el !== 'empty');
                     })
@@ -277,7 +275,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         }
         if (e.target.className === "btnComplete icon-ok") {
-            console.log("Complete");
 
             var taskEl = document.querySelectorAll('.grid-task'),
                 main = document.querySelector('main'),
@@ -307,7 +304,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         if (e.target.className === "btnEdit icon-edit"){
-            console.log("Edit");
+
         }
 
     });
