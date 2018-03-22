@@ -1,5 +1,6 @@
 @import "variable";
 @import "template";
+@import "colorsFonts";
 
 *{
 	margin:0;
@@ -7,14 +8,21 @@
 	box-sizing: border-box;
 }
 
+body{
+	background-image:url("../images/swirl_pattern/swirl_pattern.png");
+}
+
 .grid-container {
     margin: 0 auto;
     width: 100%;
     max-width: 1000px;
     border: 1px solid rgb(255, 255, 255);
+    background-color:$menuColor;
+
+
 
 	display: grid;
-	grid-template-columns: repeat(5, 1fr);
+	grid-template-columns: repeat(5, 1fr); 
 	grid-auto-rows: minmax(2em, auto);
 
 	grid-template-areas:
@@ -29,7 +37,7 @@
 }
 
 header, main, footer {
-	border: 1px solid red;
+	border: 0.5px solid grey;
 }
 
 header {
@@ -44,7 +52,8 @@ header {
 	z-index: 10;
 
 	i.icon-menu {
-		background-color: rgb(9, 235, 72);
+    background-color: map-get($fontColors,DarkGrey);
+		color:map-get($fontColors,OffWhite);
 		grid-column: 1;
 		grid-row: 1;
 		@include flexCenter();
@@ -67,13 +76,27 @@ header {
 	}
 
 	h1 {
-		background-color: rgb(27, 66, 105);
+		background: map-get($layoutColors,Peach);
+
+		font-family: 'Amatic SC', cursive;
+		text-shadow:1px 1px 1px black;
+		font-weight:700;
+		font-size:2em;
+		color:rgb(253,253,253);
+		letter-spacing:10px;
 		grid-column: 2;
 		padding: 10px;
 		@include flexCenter();
+
+		span{
+			color:map-get($fontColors, SmokeyNavy);
+			font-weight:400;
+			text-shadow:none;
+		}
 	}
 	i.icon-add {
-		background-color: rgb(9, 235, 72);
+		background-color: map-get($fontColors,DarkGrey);
+		color:map-get($fontColors, OffWhite);
 		grid-column: 3;
 		grid-row: 1;
 		@include flexCenter();
@@ -198,38 +221,78 @@ main {
 		z-index: 5;
 
 		h1 {
-			border: 1px solid red;
+			//border: 0.5px solid grey;
 			grid-area: title;
+			font-family:'Dawning of a New Day', cursive;
 			@include flexCenter();
 		}
 		h2 {
-			border: 1px solid red;
+			border: 0.5px solid grey;
 			grid-area: dateTo;
+			font-family: 'Amatic SC', cursive;
+			font-weight:400;
+			letter-spacing:5px;
 			@include flexCenter();
 		}
 		h3 {
-			border: 1px solid red;
+			border: 0.5px solid grey;
 			grid-area: dateFrom;
 			@include flexCenter();
 		}
 		.lvl {
-			border: 1px solid red;
+			border: 0.5px solid grey;
 			grid-area: lvl;
 			padding: 10px;
 		}
 		.discription {
-			border: 1px solid red;
+			border: 0.5px solid grey;
 			grid-area: discription;
 			padding: 10px;
 		}
 		.btn {
-			border: 1px solid red;
+			border: 0.5px solid grey;
 			grid-area: btn;
 			padding: 10px;
-			.btnDelete, .btnEdit, .btnComplete {
+
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			grid-auto-rows: minmax(2em, auto);
+
+
+			grid-template-areas:
+			"btnDelete btnEdit btnComplete";
+
+
+			.btnDelete{
 				@include templateFormEl();
+				grid-area: btnDelete;
 				margin: 0;
-				width: 33.333%;
+				position:relative;
+				justify-self:center;
+				width: 90%;
+
+
+			}
+
+			.btnEdit{
+				@include templateFormEl();
+				grid-area: btnEdit;
+				margin: 0;
+				width: 90%;
+				position:relative;
+				justify-self:center;
+
+
+			}
+
+			.btnComplete{
+				@include templateFormEl();
+				grid-area: btnComplete;
+				margin: 0;
+				width: 90%;
+				position:relative;
+				justify-self:center;
+
 
 			}
 		}
@@ -240,8 +303,19 @@ main {
 footer {
 	grid-area: footer;
 	display: grid;
-	grid-template-columns: 80% 20%;
-	grid-auto-rows: auto;
+	padding: 10px;
+
+	grid-template-columns: repeat(3, 1fr);
+	grid-auto-rows: minmax(2em, auto);
+
+
+	grid-template-areas:
+	"token deleteAllbutton icon";
+
+	.token{
+		grid-area:token;
+		width:90%;
+	}
 
 	position: sticky;
 	bottom: 0;
@@ -250,14 +324,31 @@ footer {
 	z-index: 5;
 
 	button {
+		grid-area:deleteAllbutton;
+		background-color:lightcoral;
+		color:white;
+		width:90%;
+		position:relative;
+		justify-self:center;
+		border-radius:5px;
+
+		&:hover{
+		background-color:red;
+		box-shadow:5px 5px 10px rgb(100,100,100);
+		}
+
+
+
+	}
+	i {
+		grid-area:icon;
+		width:90%;
+		position:relative;
+		justify-self:center;
 		grid-column: 1;
 		z-index: 10;
 	}
-	i {
-		z-index: 10;
-		grid-column: 2;
-		@include flexCenter();
-	}
+
 	div {
 		background-color: red;
 		position: absolute;
@@ -272,5 +363,20 @@ footer {
 				text-align: center;
 			}
 		}
+	}
+}
+
+//button styling
+
+.btnDelete, .btnComplete, .btnEdit{
+	background-color:map-get($mintColors,mint4);
+	color:map-get($fontColors,DarkGrey);
+	cursor:pointer;
+
+	&:hover{
+		background-color:map-get($mintColors,mint5);
+		color:map-get($fontColors,SmokeyNavy);
+		box-shadow:5px 5px 10px rgb(100,100,100);
+
 	}
 }
