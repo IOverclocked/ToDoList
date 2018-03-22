@@ -408,18 +408,35 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function showHide(bool, str){
 
-        var elAllTasks = document.querySelectorAll('.grid-task');
+        var elAllTasks = document.querySelectorAll('.grid-task'),
+            done = false,
+            work = false;
 
         for(let i=0; i<tasks.length; i++){
-
-            if(tasks[i].done !== bool){
-                elAllTasks[i].style.display = "none";
-                btnSortDone.innerText = str;
+            if(tasks[i].done === true){
+                done = true;
             } else {
-                elAllTasks[i].style.display = "grid";
+                work = true;
             }
-
         }
+
+        if(done && work){
+            for(let i=0; i<tasks.length; i++){
+
+                if(tasks[i].done !== bool){
+                    elAllTasks[i].style.display = "none";
+                    btnSortDone.innerText = str;
+                } else {
+                    elAllTasks[i].style.display = "grid";
+                }
+
+            }
+        } else if (done && !work) {
+            alert('Wszystkie zadania są wykonane');
+        } else if (work && !done) {
+            alert("Żadne zadanie nie zostało skończone!");
+        }
+
     }
 
     var done = false;
@@ -459,4 +476,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
         localStorage.setItem('todo_list', JSON.stringify(tasks));
     })
+
+
+    var motive = document.querySelectorAll('footer > div li');
+
+    function changeMotive(bgColor, fontColor, fontFamily, btnColor){
+        var main = document.querySelector('main'),
+            body = document.querySelector('body');
+
+    }
+
 });
