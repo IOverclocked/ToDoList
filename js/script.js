@@ -5,8 +5,11 @@ document.addEventListener('DOMContentLoaded', function() {
         form = $('header form').hide(),
         formContent = $('header form > div').hide(),
         iconOk = $('form > div i.icon-done').hide(),
+        menu = $('header > .menu').hide(),
         btnMenu = $('header > i.icon-menu'),
-        menu = $('header > .menu').hide();
+        settings = $('footer > div').hide(),
+        btnSettings = $('footer > i.icon-settings');
+
 
     //event dla pokazywania i ukrywania formularza
     btnShowForm.on('click', function(){
@@ -15,13 +18,22 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         formContent.slideToggle("slow");
         menu.slideUp();
-
+        settings.slideUp();
     });
 
+    //menu rozwijalne
     btnMenu.on('click', function(){
         form.slideUp();
         formContent.slideUp();
+        settings.slideUp();
         menu.slideToggle();
+    })
+
+    btnSettings.on('click', function(){
+        form.slideUp();
+        formContent.slideUp();
+        menu.slideUp();
+        settings.slideToggle();
     })
 
     //walidacja formularza
