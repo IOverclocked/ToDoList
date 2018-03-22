@@ -412,6 +412,12 @@ document.addEventListener('DOMContentLoaded', function() {
             done = false,
             work = false;
 
+        function showAll(){
+            for(let i=0; i<tasks.length; i++){
+                elAllTasks[i].style.display = "grid";
+            }
+        }
+
         for(let i=0; i<tasks.length; i++){
             if(tasks[i].done === true){
                 done = true;
@@ -433,8 +439,11 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         } else if (done && !work) {
             alert('Wszystkie zadania są wykonane');
+            showAll();
+
         } else if (work && !done) {
             alert("Żadne zadanie nie zostało skończone!");
+            showAll();
         }
 
     }
