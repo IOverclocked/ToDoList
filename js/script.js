@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function() {
             month = "0" + month
         }
 
-        var wholeDate = day + "-" + month + "-" + year;
+        var wholeDate = year + "-" + month + "-" + day;
         return wholeDate;
     }
 

@@ -16,13 +16,10 @@ body{
     margin: 0 auto;
     width: 100%;
     max-width: 1000px;
-    border: 1px solid rgb(255, 255, 255);
     background-color:$menuColor;
 
-
-
 	display: grid;
-	grid-template-columns: repeat(5, 1fr); 
+	grid-template-columns: repeat(5, 1fr);
 	grid-auto-rows: minmax(2em, auto);
 
 	grid-template-areas:
@@ -34,10 +31,6 @@ body{
 
 	position: relative;
 	z-index: 0;
-}
-
-header, main, footer {
-	border: 0.5px solid grey;
 }
 
 header {
@@ -52,8 +45,8 @@ header {
 	z-index: 10;
 
 	i.icon-menu {
-    background-color: map-get($fontColors,DarkGrey);
-		color:map-get($fontColors,OffWhite);
+    	background-color: map-get($fontColors, DarkGrey);
+		color: map-get($fontColors, OffWhite);
 		grid-column: 1;
 		grid-row: 1;
 		@include flexCenter();
@@ -61,11 +54,12 @@ header {
 
 	.menu {
 		position: absolute;
-		top: 57px;
+		top: 100%;
 		left: 0;
 		width: 100%;
 		z-index: 15;
-		background-color: red;
+		background-color: map-get($fontColors, DarkGrey);
+		color: map-get($fontColors, OffWhite);
 		ul {
 			list-style: none;
 			li {
@@ -76,8 +70,7 @@ header {
 	}
 
 	h1 {
-		background: map-get($layoutColors,Peach);
-
+		background: map-get($layoutColors, Peach);
 		font-family: 'Amatic SC', cursive;
 		text-shadow:1px 1px 1px black;
 		font-weight:700;
@@ -88,10 +81,10 @@ header {
 		padding: 10px;
 		@include flexCenter();
 
-		span{
-			color:map-get($fontColors, SmokeyNavy);
-			font-weight:400;
-			text-shadow:none;
+		span {
+			color: map-get($fontColors, SmokeyNavy);
+			font-weight: 400;
+			text-shadow: none;
 		}
 	}
 	i.icon-add {
@@ -106,7 +99,7 @@ header {
 		grid-row: 2/5;
 		padding: 10px;
 		background-color: rgb(255, 255, 255);
-		
+
 		div {
 
 			display: grid;
@@ -126,7 +119,7 @@ header {
 					grid-column: 3;
 					grid-row: #{$i};
 					font-size: 2em;
-					color: rgb(0, 255, 18);
+					color: map-get($mintColors, mint2);
 					margin: 0.5em 0 0 0;
 				}
 			}
@@ -171,20 +164,20 @@ header {
 				}
 
 				label {
-					color: black;
-					font-size: 2em;
+					color: $color-lvl-unchecked;
+					font-size: 1.4em;
 					transition: 0.5s;
 
 					&:hover,
 					&:hover ~ label {
-						font-size: 2.2em;
-						color: rgb(255, 0, 0);
-						text-shadow: 0 0 30px rgb(255, 0, 0);
+						font-size: 1.6em;
+						color: $color-lvl-checked;
+						text-shadow: 0 0 30px $color-lvl-checked;
 					}
 				}
 
 				input:checked ~ label {
-					color: rgb(255, 0, 0);
+					color: $color-lvl-checked;
 					cursor: pointer;
 				}
 
@@ -221,43 +214,35 @@ main {
 		z-index: 5;
 
 		h1 {
-			//border: 0.5px solid grey;
+			text-align: center;
+			font-size: 2em;
 			grid-area: title;
 			font-family:'Dawning of a New Day', cursive;
-			@include flexCenter();
 		}
 		h2 {
-			border: 0.5px solid grey;
 			grid-area: dateTo;
-			font-family: 'Amatic SC', cursive;
-			font-weight:400;
-			letter-spacing:5px;
-			@include flexCenter();
+			@include date;
 		}
 		h3 {
-			border: 0.5px solid grey;
 			grid-area: dateFrom;
-			@include flexCenter();
+			@include date;
 		}
 		.lvl {
-			border: 0.5px solid grey;
 			grid-area: lvl;
+			font-size: 1.3em;
+			color: $color-lvl-checked;
 			padding: 10px;
 		}
 		.discription {
-			border: 0.5px solid grey;
 			grid-area: discription;
-			padding: 10px;
+			padding: 1em;
 		}
 		.btn {
-			border: 0.5px solid grey;
 			grid-area: btn;
 			padding: 10px;
-
 			display: grid;
 			grid-template-columns: repeat(3, 1fr);
 			grid-auto-rows: minmax(2em, auto);
-
 
 			grid-template-areas:
 			"btnDelete btnEdit btnComplete";
@@ -267,11 +252,7 @@ main {
 				@include templateFormEl();
 				grid-area: btnDelete;
 				margin: 0;
-				position:relative;
-				justify-self:center;
 				width: 90%;
-
-
 			}
 
 			.btnEdit{
@@ -279,10 +260,6 @@ main {
 				grid-area: btnEdit;
 				margin: 0;
 				width: 90%;
-				position:relative;
-				justify-self:center;
-
-
 			}
 
 			.btnComplete{
@@ -290,10 +267,6 @@ main {
 				grid-area: btnComplete;
 				margin: 0;
 				width: 90%;
-				position:relative;
-				justify-self:center;
-
-
 			}
 		}
 	}
@@ -308,7 +281,6 @@ footer {
 	grid-template-columns: repeat(3, 1fr);
 	grid-auto-rows: minmax(2em, auto);
 
-
 	grid-template-areas:
 	"token deleteAllbutton icon";
 
@@ -316,6 +288,7 @@ footer {
 		grid-area:token;
 		width:90%;
 	}
+	background-color: rgba(91, 102, 106, 0.85);
 
 	position: sticky;
 	bottom: 0;
@@ -336,8 +309,6 @@ footer {
 		background-color:red;
 		box-shadow:5px 5px 10px rgb(100,100,100);
 		}
-
-
 
 	}
 	i {
