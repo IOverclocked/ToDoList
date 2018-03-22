@@ -439,10 +439,12 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         } else if (done && !work) {
             alert('Wszystkie zadania są wykonane');
+            btnSortDone.innerText = "Do zrobienia";
             showAll();
 
         } else if (work && !done) {
             alert("Żadne zadanie nie zostało skończone!");
+            btnSortDone.innerText = "Zakończone";
             showAll();
         }
 
