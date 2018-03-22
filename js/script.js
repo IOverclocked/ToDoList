@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
 
-    //zmienne do pokazywania i ukrywania formularza
+    //zmienne do pokazywania i ukrywania formularza - jqery
     var btnShowForm = $('i.icon-add'),
         form = $('header form').hide(),
         formContent = $('header form > div').hide(),
@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
         menu.slideToggle();
     })
 
+    //menu rozwijane z motywami od dołu
     btnSettings.on('click', function(){
         form.slideUp();
         formContent.slideUp();
@@ -46,6 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
         valDate = false,
         valDiscrition = false;
 
+    //funkcja sprawdzająca czy walidacja przeszła poprawnie
     function validation(val1, val2, val3){
 
         if(val1 && val2 &&  val3){
@@ -124,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
     })
 
-    function dateNow() {      // funkcja daty
+    function dateNow() { // funkcja daty
 
         var time = new Date(),
             month = time.getMonth()+1,
@@ -140,6 +142,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
         var wholeDate = year + "-" + month + "-" + day;
         return wholeDate;
+    }
+
+    function saveTasks(arr_obj){
+        localStorage.setItem('todo_list', JSON.stringify(arr_obj));
+    }
+    function downloadTasks(){
+        return JSON.parse( localStorage.getItem('todo_list'));
     }
 
     function addedTask(id, title, dateFrom, dateTo, lvl, discription, done){
@@ -202,14 +211,14 @@ document.addEventListener('DOMContentLoaded', function() {
         taskDiv.appendChild(btnDiv);
 
         if(done === true){
-            taskDiv.style.backgroundColor = 'green';
+            taskDiv.style.backgroundColor = 'rgba(255, 228, 217, 0.5)';
             titleH1.style.textDecoration = 'line-through';
         } else {
             taskDiv.style.backgroundColor = "transparent";
             titleH1.style.textDecoration = 'none';
         }
         //dodaje nowe zadanie do maina
-        $('main').hide().append(taskDiv).slideDown('slow');
+        $('main').hide().append(taskDiv);
     }
 
 
@@ -227,16 +236,32 @@ document.addEventListener('DOMContentLoaded', function() {
         this.done = done;
     }
 
+    function getId(){
+        var maxId = 0;
+        document.querySelectorAll('.grid-task').forEach(function(task){
+
+            if(maxId < parseInt(task.dataset.id)+1){
+                maxId = parseInt(task.dataset.id)+1;
+            }
+
+        });
+        return maxId;
+    }
+
     btnAdd.addEventListener('click', function(e){
 
         e.preventDefault();
 
-        var task = new Task(tasks.length, title.value, dateNow(), date.value, lvl, discription.value, false);
+        var task = new Task(getId(), title.value, dateNow(), date.value, lvl, discription.value, false);
         tasks.push(task);
 
-        localStorage.setItem('todo_list', JSON.stringify(tasks));
+        saveTasks(tasks);
 
         addedTask(task.id, task.title, task.dateFrom, task.dateTo, task.lvl, task.discription, task.done);
+
+        $('main').animate({
+            width: "toggle"
+        });
 
         //resetuje wartości z formularza
         //z pół formularza
@@ -281,9 +306,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
             }
 
-            console.log(tasks);
             //zapisuję zmiany w pamięci
-            localStorage.setItem('todo_list', JSON.stringify(tasks));
+            saveTasks(tasks);
 
         }
         if (e.target.className === "btnComplete icon-ok") {
@@ -301,7 +325,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     if(tasks[i].done == false){
                         tasks[i].done = true;
-                        task.style.backgroundColor = "green";
+                        task.style.backgroundColor = 'rgba(255, 228, 217, 0.5)';
                         h1.style.textDecoration = "line-through";
                     } else {
                         tasks[i].done = false;
@@ -311,7 +335,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
 
-            localStorage.setItem('todo_list', JSON.stringify(tasks));
+            saveTasks(tasks);
 
         }
 
@@ -327,12 +351,16 @@ document.addEventListener('DOMContentLoaded', function() {
             addedTask(tasks[i].id, tasks[i].title, tasks[i].dateFrom, tasks[i].dateTo, tasks[i].lvl, tasks[i].discription, tasks[i].done);
         }
 
+        $('main').animate({
+            width: "toggle"
+        }, 2000);
+
     }
 
-    function downloadTasksFromSotrage(){
+    function showAllTasksFromStorage(){
 
         //pobieram z pamięci
-        tasks = JSON.parse( localStorage.getItem('todo_list'));
+        tasks = downloadTasks();
 
         if(tasks !== null){
 
@@ -344,7 +372,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     }
 
-    downloadTasksFromSotrage();
+    showAllTasksFromStorage();
 
     //---------------------------- Sortowanie ---------------------------------//
 
@@ -352,6 +380,7 @@ document.addEventListener('DOMContentLoaded', function() {
         btnSortDone = document.querySelector('.menu > ul > li:nth-child(2)'),
         btnShowAll = document.querySelector('.menu > ul > li:nth-child(3)');
 
+    //event dla sortowania
     btnSortLvl.addEventListener('click', function(){
 
         clearList();
@@ -366,10 +395,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     })
 
+    var done = true;
+    //event dla pokazywania zrobionych i na odwrót
     btnSortDone.addEventListener('click', function(){
-        showHideDone();
+        if(done === true) {
+            toggleShowTask(true)
+            done = false;
+        } else {
+            toggleShowTask(false);
+            done = true;
+        }
     })
 
+    //event dla pokazania wszytskich na liście
     btnShowAll.addEventListener('click', function(){
         showAllTask();
     })
@@ -412,68 +450,36 @@ document.addEventListener('DOMContentLoaded', function() {
         btnSortLvl.innerText = "Sortuj rosnąco";
     }
 
+    //funkcja pokazująca całą listę
     function showAllTask(){
 
         var elAllTasks = $('.grid-task');
         for(let i=0; i<tasks.length; i++){
             elAllTasks.eq(i).hide();
         }
-        elAllTasks.slideDown();
+        elAllTasks.fadeIn();
 
     }
 
-    function showHide(bool, str){
+    function toggleShowTask(bool){
 
-        var elAllTasks = $('.grid-task').hide(),
-            done = false,
-            work = false;
+        var elAllTasks = $('.grid-task');
 
         for(let i=0; i<tasks.length; i++){
-            if(tasks[i].done === true){
-                done = true;
+            if(tasks[i].done !== bool){
+                elAllTasks.eq(i).fadeOut();
             } else {
-                work = true;
+                elAllTasks.eq(i).fadeIn();
             }
         }
-
-        if(done && work){
-            for(let i=0; i<tasks.length; i++){
-
-                if(tasks[i].done !== bool){
-                    elAllTasks.eq(i).slideDown();
-                    btnSortDone.innerText = str;
-                } else {
-                    elAllTasks.eq(i).hide();
-                }
-
-            }
-        } else if (done && !work) {
-            btnSortDone.innerText = "Do zrobienia";
-            showAllTask();
-
-        } else if (work && !done) {
-            btnSortDone.innerText = "Zakończone";
-            showAllTask();
+        if(bool === true){
+            btnSortDone.innerText = "Pokaż  do zrobienia";
+        } else {
+            btnSortDone.innerText = "Pokaż zakończone";
         }
 
     }
 
-    var done = false;
-    function showHideDone(){
-
-        if(done === false){
-
-            showHide(true, "Do zrobienia");
-
-            done = true;
-        } else if (done === true) {
-
-            showHide(false, "Zakończone");
-
-            done = false;
-        }
-
-    }
 
     var btnAllDeleteDone = document.querySelector('footer > button');
 
@@ -493,7 +499,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return (task !== 'empty');
         })
 
-        localStorage.setItem('todo_list', JSON.stringify(tasks));
+        saveTasks(tasks);
     })
 
 
