@@ -189,6 +189,13 @@ document.addEventListener('DOMContentLoaded', function() {
         taskDiv.appendChild(discriptionP);
         taskDiv.appendChild(btnDiv);
 
+        if(done === true){
+            taskDiv.style.backgroundColor = 'green';
+            titleH1.style.textDecoration = 'line-through';
+        } else {
+            taskDiv.style.backgroundColor = 'yellow';
+            titleH1.style.textDecoration = 'none';
+        }
         //dodaje nowe zadanie do maina
         document.querySelector('main').appendChild(taskDiv);
     }
@@ -272,17 +279,25 @@ document.addEventListener('DOMContentLoaded', function() {
         if (e.target.className === "btnComplete icon-ok") {
             console.log("Complete");
 
-            var discription = document.querySelector(".discription");
+            var taskEl = document.querySelectorAll('.grid-task'),
+                main = document.querySelector('main'),
+                task = e.target.parentElement.parentElement,
+                taskId = task.dataset.id;
 
-            // nie wiem jak zrobić, aby po ponownym kliknięciu kolor i przekreślenie znikły
-            if (e.target.style != true) {
-                discription.style.backgroundColor = "green";
-                discription.style.textDecoration = "line-through";
-                Task.done = true;
-            } else {
-                discription.style.backgroundColor = "none";
-                discription.style.textDecoration = "none";
-                Task.done = false;
+
+            for(let i=0; i<tasks.length; i++){
+
+                if(tasks[i].id == taskId){
+
+                    if(tasks[i].done == false){
+                        tasks[i].done = true;
+                        task.style.backgroundColor = "green";
+                    } else {
+                        tasks[i].done = false;
+                        task.style.backgroundColor = "yellow";
+                    }
+
+                }
             }
         }
             /*
