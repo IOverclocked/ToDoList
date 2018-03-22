@@ -4,7 +4,9 @@ document.addEventListener('DOMContentLoaded', function() {
     var btnShowForm = $('i.icon-add'),
         form = $('header form').hide(),
         formContent = $('header form > div').hide(),
-        iconOk = $('form > div i.icon-done').hide();
+        iconOk = $('form > div i.icon-done').hide(),
+        btnMenu = $('header > i.icon-menu'),
+        menu = $('header > .menu').hide();
 
     //event dla pokazywania i ukrywania formularza
     btnShowForm.on('click', function(){
@@ -12,8 +14,15 @@ document.addEventListener('DOMContentLoaded', function() {
             width: "toggle"
         })
         formContent.slideToggle("slow");
+        menu.slideUp();
 
     });
+
+    btnMenu.on('click', function(){
+        form.slideUp();
+        formContent.slideUp();
+        menu.slideToggle();
+    })
 
     //walidacja formularza
     var title = document.querySelector('#title'),
@@ -155,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function() {
         //i od razu wrzucam po kolei do głównego diva
         for(let i=0; i<lvl; i++){
             lvlsI[i] = document.createElement('i');
-            lvlsI[i].classList.add('icon-star');
+            lvlsI[i].classList.add('icon-lvl');
             lvlDiv.appendChild(lvlsI[i]);
         }
         //daje mu klasę
@@ -203,7 +212,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         e.preventDefault();
 
-        var task = new Task(tasks.length, title.value, dateNow(), date.value, lvl, discription.value, false);
+        var task = new Task(tasks.length, title.value, dateNow(), date.value, lvl, discription.value, true);
         tasks.push(task);
 
         localStorage.setItem('todo_list', JSON.stringify( tasks ) );
@@ -317,8 +326,27 @@ document.addEventListener('DOMContentLoaded', function() {
 
     //---------------------------- Sortowanie ---------------------------------//
 
-    var btnSort = document.querySelector('header > i');
+    var btnSortLvl = document.querySelector('.menu > ul > li:nth-child(1)'),
+        btnSortDone = document.querySelector('.menu > ul > li:nth-child(2)');
 
+    btnSortLvl.addEventListener('click', function(){
+
+        clearList();
+
+        if(sort === false) {
+            sortDown();
+        } else {
+            sortUp();
+        }
+
+        addAllTask();
+
+    })
+    btnSortDone.addEventListener('click', function(){
+        showHideDone();
+    })
+
+    //funkcja czyszczonca listę
     function clearList(){
 
         var main = document.querySelector('main'),
@@ -341,8 +369,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         sort = true;
 
-        btnSort.classList.remove('icon-sort-down');
-        btnSort.classList.add('icon-sort-up');
+        btnSortLvl.innerText = "Sortuj malejąco";
 
     }
 
@@ -354,23 +381,40 @@ document.addEventListener('DOMContentLoaded', function() {
 
         sort = false;
 
-        btnSort.classList.remove('icon-sort-up');
-        btnSort.classList.add('icon-sort-down');
+        btnSortLvl.innerText = "Sortuj rosnąco";
     }
 
-    btnSort.addEventListener('click', function(){
+    function showHide(bool, str){
 
-        clearList();
+        var elAllTasks = document.querySelectorAll('.grid-task');
 
-        if(sort === false) {
-            sortDown();
-        } else {
-            sortUp();
+        for(let i=0; i<tasks.length; i++){
+
+            if(tasks[i].done !== bool){
+                elAllTasks[i].style.display = "none";
+                btnSortDone.innerText = str;
+            } else {
+                elAllTasks[i].style.display = "grid";
+            }
+
+        }
+    }
+
+    var done = false;
+    function showHideDone(){
+
+        if(done === false){
+
+            showHide(true, "Do zrobienia");
+
+            done = true;
+        } else if (done === true) {
+
+            showHide(false, "Zakończone");
+
+            done = false;
         }
 
-        addAllTask();
-
-    })
-
+    }
 
 });

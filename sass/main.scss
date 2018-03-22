@@ -43,12 +43,26 @@ header {
 	left: 0;
 	z-index: 10;
 
-	i.icon-sort-up,
-	i.icon-sort-down {
+	i.icon-menu {
 		background-color: rgb(9, 235, 72);
 		grid-column: 1;
 		grid-row: 1;
 		@include flexCenter();
+	}
+
+	.menu {
+		position: absolute;
+		top: 57px;
+		left: 0;
+		z-index: 15;
+		background-color: red;
+		ul {
+			list-style: none;
+			li {
+				border: 1px solid #fff;
+				padding: 10px;
+			}
+		}
 	}
 
 	h1 {
