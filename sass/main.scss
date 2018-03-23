@@ -94,7 +94,7 @@ header {
 		color: map-get($fontColors, SmokeyNavy);
 		text-shadow:1px 1px 1px black;
 		font-weight:400;
-		font-size:2.5em;
+		font-size:2em;
 		color:rgb(253,253,253);
 		letter-spacing:15px;
 		grid-column: 2;
@@ -108,7 +108,7 @@ header {
 		}
 
 		.cat{
-			width:60px;
+			width:50px;
 
 		}
 	
@@ -147,7 +147,7 @@ header {
 
 			@for $i from 1 to 4 {
 				i:nth-of-type(#{$i}) {
-					grid-column: 2;
+					grid-column: 3;
 					grid-row: #{$i};
 					font-size: 2em;
 					color: map-get($mintColors, mint2);
@@ -282,6 +282,8 @@ main {
 			padding: 10px;
 		}
 		.discription {
+			font-family:"Dawning of a New Day", cursive;
+			font-size:1.5em;
 			grid-area: discription;
 			padding: 1em;
 		}
