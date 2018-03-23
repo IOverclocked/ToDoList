@@ -16,6 +16,18 @@
     align-items: center;
 }
 
+@mixin flexRight {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+@mixin flexLeft {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
 @mixin date {
 	padding: 5px;
 	font-weight: 700;

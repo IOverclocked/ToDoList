@@ -28,6 +28,7 @@ body{
 	"main main main main main"
 	"main main main main main"
 	"footer footer footer footer footer";
+	
 
 	position: relative;
 	z-index: 0;
@@ -49,6 +50,7 @@ header {
 		color: map-get($fontColors, OffWhite);
 		grid-column: 1;
 		grid-row: 1;
+		cursor: pointer;
 		@include flexCenter();
 	}
 
@@ -58,25 +60,43 @@ header {
 		left: 0;
 		width: 100%;
 		z-index: 15;
-		background-color: map-get($fontColors, DarkGrey);
-		color: map-get($fontColors, OffWhite);
+
+		background-color: map-get($mintColors,mint6);
+		color: map-get($fontColors, SmokeyNavy);
 		ul {
 			list-style: none;
 			li {
+				font-family:'Amatic SC', cursive;
+				font-size:1.1rem;
+				font-weight:700;
+				letter-spacing:5px;
+				cursor: pointer;
 				padding: 5px;
 				text-align: center;
+				
+
+				&:hover{
+					font-size:1.5em;
+					padding:0px;
+				
+
+				}
 			}
+			
+
+		
 		}
 	}
 
-	h1 {
-		background: map-get($layoutColors, Peach);
+	.h1 {
+		background: map-get($mintColors, mint3);
 		font-family: 'Amatic SC', cursive;
+		color: map-get($fontColors, SmokeyNavy);
 		text-shadow:1px 1px 1px black;
-		font-weight:700;
-		font-size:2em;
+		font-weight:400;
+		font-size:2.5em;
 		color:rgb(253,253,253);
-		letter-spacing:10px;
+		letter-spacing:15px;
 		grid-column: 2;
 		padding: 10px;
 		@include flexCenter();
@@ -86,12 +106,21 @@ header {
 			font-weight: 400;
 			text-shadow: none;
 		}
+
+		.cat{
+			width:60px;
+
+		}
+	
+
+	
 	}
 	i.icon-add {
 		background-color: map-get($fontColors,DarkGrey);
 		color:map-get($fontColors, OffWhite);
 		grid-column: 3;
 		grid-row: 1;
+		cursor: pointer;
 		@include flexCenter();
 	}
 	form {
@@ -99,11 +128,13 @@ header {
 		grid-row: 2/5;
 		padding: 10px;
 		background-color: rgb(255, 255, 255);
+		
+
 
 		div {
 
 			display: grid;
-			grid-template-columns: 50% 40% 10%;
+			grid-template-columns: 10% 80% 10%;
 			grid-template-rows: repeat(8, minmax(20px, auto));
 
 			input, textarea, button, select {
@@ -111,12 +142,12 @@ header {
 			}
 
 			label[for=title] {
-				grid-column: 1/3;
+				grid-column: 2;
 			}
 
 			@for $i from 1 to 4 {
 				i:nth-of-type(#{$i}) {
-					grid-column: 3;
+					grid-column: 2;
 					grid-row: #{$i};
 					font-size: 2em;
 					color: map-get($mintColors, mint2);
@@ -125,13 +156,13 @@ header {
 			}
 
 			label[for=date] {
-				grid-column: 1/3;
+				grid-column: 2;
 				grid-row: 2;
 			}
 
 
 			label[for=discription]{
-				grid-column: 1/3;
+				grid-column: 2;
 				grid-row: 3/7;
 				textarea {
 					resize: none;
@@ -142,14 +173,27 @@ header {
 				grid-column: 2;
 				grid-row: 7;
 				margin: 1em 0 0 0;
-				@include flexCenter();
+				@include flexRight();
 			}
 			button {
-				grid-column: 1/3;
+				grid-column: 2;
 				grid-row: 8;
+				background-color: map-get($vividColors, Pink);
+				color:map-get($fontColors,White);
+				cursor:pointer;
+
+				&:hover{
+				background-color:map-get($vividColors, Violet);
+				color:map-get($fontColors,White);
+				box-shadow:3px 3px 10px rgb(100,100,100);
+
+			}
+
+			
+
 			}
 			#boxLvl { //gwiazdki dla lvl
-				grid-column: 1/2;
+				grid-column:2;
 				grid-row: 7;
 				margin: 1em 0 0 0;
 				display: flex;
@@ -157,10 +201,13 @@ header {
 				align-content: center;
 				justify-content: flex-end;
 
+
 				//gwiazdki dla lvl
 				input {
+
 					position: absolute;
 					left: -999999px;
+					cursor:pointer;
 				}
 
 				label {
@@ -192,6 +239,7 @@ header {
 
 	}
 }
+
 
 
 main {
@@ -318,10 +366,11 @@ footer {
 		justify-self:center;
 		grid-column: 1;
 		z-index: 10;
+		@include flexLeft();
 	}
 
 	div {
-		background-color: red;
+		background-color: map-get($fontColors, OffWhite);
 		position: absolute;
 		right: 0;
 		bottom: 30px;
@@ -335,9 +384,15 @@ footer {
 			}
 		}
 	}
+
+
+
 }
 
-//button styling
+
+
+
+
 
 .btnDelete, .btnComplete, .btnEdit{
 	background-color:map-get($mintColors,mint4);
@@ -350,4 +405,8 @@ footer {
 		box-shadow:5px 5px 10px rgb(100,100,100);
 
 	}
+}
+
+.btnDeleteAll{
+	cursor: pointer;
 }
