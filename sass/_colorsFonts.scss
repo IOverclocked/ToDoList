@@ -2,9 +2,11 @@ $layoutColors:(DarkBlue: #4d687b,
 		Blue: #6897a7,
  		LightBlue: #d3ecf1,
 		Peach: #ffe4d9,
+		LightPeach: rgba(255,228,217,0.5	),
 		Rosa: #e2cdd2);
 
 $fontColors:(OffWhite:#dfe3e6,
+		White:#fff,
 		LightGrey:#c7cbce,
 		Grey:#b0b5b9,
 		RichGrey:#9aa2a5,
@@ -15,7 +17,8 @@ $mintColors:(mint1: rgba(66, 181, 166, 1),
 			mint2: rgba(100, 194, 182, 1),
 			mint3: rgba(134, 207, 198, 1),
 			mint4: rgba(169, 221, 214, 1),
-			mint5: rgba(203, 234, 230, 1));
+			mint5: rgba(203, 234, 230, 1),
+			mint6: rgba(203, 234, 230, 0.5));
 
 $neutralColors:(neutral1: rgba(242, 237, 218, 1),
 	neutral2: rgba(242, 240, 223, 1),
@@ -23,7 +26,16 @@ $neutralColors:(neutral1: rgba(242, 237, 218, 1),
 	neutral4: rgba(240, 242, 233, 1),
 	neutral5: rgba(240, 242, 242, 1));
 
+$vividColors:(LightGreen: #7BD7C2,
+		Green:#218380,
+		Yellow:#FFBC42,
+		Pink:#FF70A4,
+		Violet:#BE0F64);
+
 $menuColor:rgba(255,255,255,0.7);
 
 $fonts:(Amatic: "font-family: 'Amatic SC', cursive;",
 		Dawning: "font-family: 'Dawning of a New Day', cursive;");
+
+//Cat:Grumpy Cat by Arancha R from the Noun Project
+//Background: Background by Uday. Downloaded from www.subtlepatterns.com 
