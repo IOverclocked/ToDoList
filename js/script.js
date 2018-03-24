@@ -511,4 +511,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     }
 
+    //latajacy kot
+    var actionDiv= document.querySelector("#actionDiv");
+
+    btnAllDeleteDone.addEventListener("click", function(event){
+
+        console.log("guzik dziala");
+
+        actionDiv.classList.remove("flyingCat");
+        actionDiv.classList.add("flyingCat");
+   
+
+    });
+
 });
+

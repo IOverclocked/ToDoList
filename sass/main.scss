@@ -10,6 +10,8 @@
 
 body{
 	background-image:url("../images/swirl_pattern/swirl_pattern.png");
+
+
 }
 
 .grid-container {
@@ -61,7 +63,7 @@ header {
 		width: 100%;
 		z-index: 15;
 
-		background-color: map-get($mintColors,mint6);
+		background-color: map-get($mintColors,mint5);
 		color: map-get($fontColors, SmokeyNavy);
 		ul {
 			list-style: none;
@@ -94,7 +96,7 @@ header {
 		color: map-get($fontColors, SmokeyNavy);
 		text-shadow:1px 1px 1px black;
 		font-weight:400;
-		font-size:2em;
+		font-size:1.5em;
 		color:rgb(253,253,253);
 		letter-spacing:15px;
 		grid-column: 2;
@@ -143,7 +145,9 @@ header {
 
 			label[for=title] {
 				grid-column: 2;
+
 			}
+
 
 			@for $i from 1 to 4 {
 				i:nth-of-type(#{$i}) {
@@ -238,6 +242,8 @@ header {
 		}
 
 	}
+
+
 }
 
 
@@ -251,8 +257,10 @@ main {
 		grid-auto-rows: minmax(2em, auto);
 
 		grid-template-areas:
-		"dateFrom title title title dateTo"
-		"dateFrom title title title dateTo"
+		
+		"dateFrom dateFrom dateTo dateTo dateTo"
+		"title title title title title"
+		"title title title title title"
 		"lvl lvl lvl lvl lvl"
 		"discription discription discription discription discription"
 		"discription discription discription discription discription"
@@ -262,30 +270,37 @@ main {
 		z-index: 5;
 
 		h1 {
-			text-align: center;
-			font-size: 2em;
+			
+			font-size: 1.7em;
 			grid-area: title;
-			font-family:'Dawning of a New Day', cursive;
+			font-family: 'Dawning of a New Day', cursive;
+			padding:5px;
+			border-top: 1px solid black;
+			border-bottom: 1px solid black;
+			@include flexLeft();
 		}
 		h2 {
 			grid-area: dateTo;
+			@include flexRight();
 			@include date;
+			color:lightcoral;
 		}
 		h3 {
 			grid-area: dateFrom;
+			@include flexLeft();
 			@include date;
 		}
 		.lvl {
 			grid-area: lvl;
-			font-size: 1.3em;
+			font-size: 1em;
 			color: $color-lvl-checked;
-			padding: 10px;
+			padding: 5px;
 		}
 		.discription {
-			font-family:"Dawning of a New Day", cursive;
+			font-family: 'Dawning of a New Day', cursive;
 			font-size:1.5em;
 			grid-area: discription;
-			padding: 1em;
+			padding: 5px;
 		}
 		.btn {
 			grid-area: btn;
@@ -393,9 +408,6 @@ footer {
 
 
 
-
-
-
 .btnDelete, .btnComplete, .btnEdit{
 	background-color:map-get($mintColors,mint4);
 	color:map-get($fontColors,DarkGrey);
@@ -411,4 +423,177 @@ footer {
 
 .btnDeleteAll{
 	cursor: pointer;
+}
+
+
+
+	.flyingCat{
+
+	//wylosowac random position dla kota
+		width:200px;
+		height:200px;
+		margin:10px;
+		float:right;
+		
+		
+		background-image:url("../images/flyingcat.png");
+		background-repeat: no-repeat;
+		background-size:contain;
+
+		animation-name:rotatingCat;
+		animation-duration:3s;
+		animation-iteration-count:1;
+	
+		//animation-timing-function:ease-in;
+
+		@keyframes rotatingCat {
+
+			0%{
+			transform:rotate(1deg) translate(1px,1px);
+			}
+			100%{
+			transform:rotate(360deg) translate(500px,500px);
+			}
+		}
+
+	}
+
+
+@media (min-width: 768px) {
+    /* For desktop: */
+
+	header {
+		grid-area: header;
+		display: grid;
+		grid-template-columns: 10% 80% 10% ;
+		grid-auto-rows: minmax(2em, auto);
+
+		position: sticky;
+		top: 0;
+		left: 0;
+		z-index: 10;
+
+
+		.h1 {
+			background: map-get($mintColors, mint3);
+			font-family: 'Amatic SC', cursive;
+			color: map-get($fontColors, SmokeyNavy);
+			text-shadow:1px 1px 1px black;
+			font-weight:400;
+			font-size:2em;
+			color:rgb(253,253,253);
+			letter-spacing:15px;
+			grid-column: 2;
+			padding: 10px;
+			@include flexCenter();
+
+			span {
+				color: map-get($fontColors, SmokeyNavy);
+				font-weight: 400;
+				text-shadow: none;
+			}
+
+			.cat{
+				width:70px;
+
+			}
+		}
+
+	}
+    
+
+    main {
+		grid-area: main;
+
+	.grid-task {
+		display: grid;
+		grid-template-columns: repeat(5, 1fr);
+		grid-auto-rows: minmax(2em, auto);
+
+		grid-template-areas:
+		"dateFrom title title title dateTo"
+		"dateFrom title title title dateTo"
+		"lvl lvl lvl lvl lvl"
+		"discription discription discription discription discription"
+		"discription discription discription discription discription"
+		"discription discription discription discription discription"
+		"btn btn btn btn btn";
+
+		z-index: 5;
+
+		h1 {
+			
+			font-size: 2em;
+			grid-area: title;
+			border-top:none;
+			padding:5px;
+			@include flexCenter();
+		}
+		h2 {
+			grid-area: dateTo;
+			@include flexCenter();
+			@include date;
+			padding: 10px;
+			font-size:2em;
+			color:lightcoral;
+		}
+		h3 {
+			grid-area: dateFrom;
+			@include flexCenter();
+			@include date;
+			padding: 10px;
+			font-size:2em;
+			font-weight:400;
+		}
+		.lvl {
+			grid-area: lvl;
+			font-size: 1em;
+			color: $color-lvl-checked;
+			padding-left: 20px;
+		}
+		.discription {
+			font-family: 'Dawning of a New Day', cursive;
+			font-size:1.5em;
+			grid-area: discription;
+			padding: 10px;
+			@include flexCenter();
+		}
+		.btn {
+			grid-area: btn;
+			padding: 10px;
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			grid-auto-rows: minmax(2em, auto);
+
+			grid-template-areas:
+			"btnDelete btnEdit btnComplete";
+
+
+			.btnDelete{
+				@include templateFormEl();
+				grid-area: btnDelete;
+				margin: 0;
+				width: 90%;
+			}
+
+			.btnEdit{
+				@include templateFormEl();
+				grid-area: btnEdit;
+				margin: 0;
+				width: 90%;
+			}
+
+			.btnComplete{
+				@include templateFormEl();
+				grid-area: btnComplete;
+				margin: 0;
+				width: 90%;
+			}
+		}
+	}
+
+}
+
+
+
 }
