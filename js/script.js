@@ -481,7 +481,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 
-    var btnAllDeleteDone = document.querySelector('footer > button');
+    var btnAllDeleteDone = document.querySelector('footer > button'),
+        actionDiv= document.querySelector("#actionDiv");
 
     btnAllDeleteDone.addEventListener('click', function(){
 
@@ -498,6 +499,9 @@ document.addEventListener('DOMContentLoaded', function() {
         tasks = tasks.filter(function(task){
             return (task !== 'empty');
         })
+        //latajacy kot
+        actionDiv.classList.remove("flyingCat");
+        actionDiv.classList.add("flyingCat");
 
         saveTasks(tasks);
     })
@@ -508,21 +512,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function changeMotive(bgColor, fontColor, fontFamily, btnColor){
         var main = document.querySelector('main'),
             body = document.querySelector('body');
-
+            ////////////DO ZROBIENIA////////////
     }
 
-    //latajacy kot
-    var actionDiv= document.querySelector("#actionDiv");
-
-    btnAllDeleteDone.addEventListener("click", function(event){
-
-        console.log("guzik dziala");
-
-        actionDiv.classList.remove("flyingCat");
-        actionDiv.classList.add("flyingCat");
-   
-
-    });
-
 });
-
