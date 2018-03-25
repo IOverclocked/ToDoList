@@ -275,6 +275,8 @@ document.addEventListener('DOMContentLoaded', function() {
         for(let i=0; i<3; i++) iconOk.eq(i).hide();
         //resetuje lvl
         document.querySelectorAll('#boxLvl > input')[4].checked = true;
+        //resetuje licznik znaków
+        document.querySelector('form > div p').innerText = 0
 
     })
 

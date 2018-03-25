@@ -48,10 +48,15 @@ header {
 	i.icon-menu {
     	background-color: map-get($fontColors, DarkGrey);
 		color: map-get($fontColors, OffWhite);
+		font-size: 1.5em;
 		grid-column: 1;
 		grid-row: 1;
 		cursor: pointer;
 		@include flexCenter();
+		&:hover {
+			font-size: 2em;
+			background-color: map-get($fontColors, SmokeyNavy);
+		}
 	}
 
 	.menu {
@@ -113,6 +118,10 @@ header {
 		grid-row: 1;
 		cursor: pointer;
 		@include flexCenter();
+		&:hover {
+			font-size: 2em;
+			background-color: map-get($fontColors, SmokeyNavy);
+		}
 	}
 	form {
 		grid-column: 1/4;
@@ -173,10 +182,14 @@ header {
 				}
 			}
 
-			p {
+			p.counter {
 				grid-column: 2;
 				grid-row: 7;
 				margin: 1em 0 0 0;
+				font-size: 2em;
+				font-weight: 700;
+				color:map-get($vividColors, Violet);
+				font-family: 'Amatic SC', cursive;
 				@include flexRight();
 			}
 			button {
