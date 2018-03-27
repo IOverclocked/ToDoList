@@ -52,8 +52,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if(val1 && val2 &&  val3){
             btnAdd.removeAttribute("disabled");
+            btnAdd.style.backgroundColor = "#FF70A4";
         } else {
-            btnAdd.setAttribute("disabled", "");
+            btnAdd.setAttribute("disabled", "disabled");
+            btnAdd.style.backgroundColor = "rgba(134, 207, 198, 1)";
         }
 
     }
@@ -277,7 +279,8 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('#boxLvl > input')[4].checked = true;
         //resetuje licznik znaków
         document.querySelector('form > div p').innerText = 0
-
+        //dezaktyruję przycisk
+        validation();
     })
 
     // Przyciski: delete, complete, edit

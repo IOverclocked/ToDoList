@@ -199,7 +199,7 @@ header {
 				color:map-get($fontColors,White);
 				cursor:pointer;
 
-				&:hover{
+				&:enabled:hover {
 				background-color:map-get($vividColors, Violet);
 				color:map-get($fontColors,White);
 				box-shadow:3px 3px 10px rgb(100,100,100);
