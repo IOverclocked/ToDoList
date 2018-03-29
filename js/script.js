@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
 
-    //zmienne do pokazywania i ukrywania formularza - jqery
+    //zmienne do pokazywania i ukrywania formularza - jquery
     var btnShowForm = $('i.icon-add'),
         form = $('header form').hide(),
         formContent = $('header form > div').hide(),
@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     //event dla pokazywania i ukrywania formularza
-    btnShowForm.on('click', function(){
+    btnShowForm.on('click', function() {
         form.animate({
             width: "toggle"
         })
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     //menu rozwijalne
-    btnMenu.on('click', function(){
+    btnMenu.on('click', function() {
         form.slideUp();
         formContent.slideUp();
         settings.slideUp();
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
     })
 
     //menu rozwijane z motywami od dołu
-    btnSettings.on('click', function(){
+    btnSettings.on('click', function() {
         form.slideUp();
         formContent.slideUp();
         menu.slideUp();
@@ -48,9 +48,9 @@ document.addEventListener('DOMContentLoaded', function() {
         valDiscrition = false;
 
     //funkcja sprawdzająca czy walidacja przeszła poprawnie
-    function validation(val1, val2, val3){
+    function validation(val1, val2, val3) {
 
-        if(val1 && val2 &&  val3){
+        if (val1 && val2 && val3) {
             btnAdd.removeAttribute("disabled");
             btnAdd.style.backgroundColor = "#FF70A4";
         } else {
@@ -62,11 +62,11 @@ document.addEventListener('DOMContentLoaded', function() {
     validation();
 
     //walidacja tytułu
-    title.addEventListener('keyup', function(){
+    title.addEventListener('keyup', function() {
 
         var length = title.value.length;
 
-        if(length < 25 && length > 5){
+        if (length < 25 && length > 5) {
             iconOk.eq(0).fadeIn();
             valTitle = true;
         } else {
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
     })
 
     //walidacja daty
-    date.addEventListener('blur', function(){
+    date.addEventListener('blur', function() {
 
         var dateNow = new Date(), //pobierz dzisiejszą datę
             deadline = Date.parse(this.value, 'dd.mm.rrrr'); //sprasuj date zaznaczoną
@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         //sprawdź czy ktoś nie zaznaczył terminu na dzisiaj lub wczoraj,
         //oraz długości daty
-        if((deadline-dateNow) > 0 && this.value.length === 10){
+        if ((deadline - dateNow) > 0 && this.value.length === 10) {
             iconOk.eq(1).fadeIn();
             valDate = true;
         } else {
@@ -101,12 +101,12 @@ document.addEventListener('DOMContentLoaded', function() {
     })
 
     //walidacja opisu
-    discription.addEventListener('keyup', function(){
+    discription.addEventListener('keyup', function() {
 
         var counter = discription.value.length;
         document.querySelector('form > div p').innerText = counter;
 
-        if(counter < 100 && counter > 10 ){
+        if (counter < 100 && counter > 10) {
             iconOk.eq(2).fadeIn();
             valDiscrition = true;
         } else {
@@ -122,8 +122,8 @@ document.addEventListener('DOMContentLoaded', function() {
         lvl = 1;
 
     //sprawdzenie poziomu
-    radioAll.forEach(function(radio){
-        radio.addEventListener('click', function(){
+    radioAll.forEach(function(radio) {
+        radio.addEventListener('click', function() {
             lvl = this.value;
         })
     })
@@ -131,11 +131,11 @@ document.addEventListener('DOMContentLoaded', function() {
     function dateNow() { // funkcja daty
 
         var time = new Date(),
-            month = time.getMonth()+1,
+            month = time.getMonth() + 1,
             day = time.getDate(),
             year = time.getFullYear();
 
-        if(day < 10) {
+        if (day < 10) {
             day = "0" + day;
         }
         if (month < 10) {
@@ -146,14 +146,15 @@ document.addEventListener('DOMContentLoaded', function() {
         return wholeDate;
     }
 
-    function saveTasks(arr_obj){
+    function saveTasks(arr_obj) {
         localStorage.setItem('todo_list', JSON.stringify(arr_obj));
     }
-    function downloadTasks(){
-        return JSON.parse( localStorage.getItem('todo_list'));
+
+    function downloadTasks() {
+        return JSON.parse(localStorage.getItem('todo_list'));
     }
 
-    function addedTask(id, title, dateFrom, dateTo, lvl, discription, done){
+    function addedTask(id, title, dateFrom, dateTo, lvl, discription, done) {
 
         var taskDiv = document.createElement('div'),
             titleH1 = document.createElement('h1'),
@@ -166,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
             lvlsI = [];
 
         //tworze buttony
-        for(let i=0; i<3; i++){
+        for (let i = 0; i < 3; i++) {
             buttons[i] = document.createElement('button');
         }
         //dodaje im klasy
@@ -177,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function() {
         buttons[1].classList.add('icon-ok');
         buttons[2].classList.add('icon-edit');
         //wrzucam do diva
-        for(let i=0; i<3; i++){
+        for (let i = 0; i < 3; i++) {
             btnDiv.appendChild(buttons[i]);
         }
         //daje mu klase
@@ -185,7 +186,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         //tworze pojemniki na ikony i dodaje im klasę
         //i od razu wrzucam po kolei do głównego diva
-        for(let i=0; i<lvl; i++){
+        for (let i = 0; i < lvl; i++) {
             lvlsI[i] = document.createElement('i');
             lvlsI[i].classList.add('icon-lvl');
             lvlDiv.appendChild(lvlsI[i]);
@@ -212,7 +213,7 @@ document.addEventListener('DOMContentLoaded', function() {
         taskDiv.appendChild(discriptionP);
         taskDiv.appendChild(btnDiv);
 
-        if(done === true){
+        if (done === true) {
             taskDiv.style.backgroundColor = 'rgba(255, 228, 217, 0.5)';
             titleH1.style.textDecoration = 'line-through';
         } else {
@@ -228,7 +229,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var tasks = [];
 
     //konstruktor zadania
-    var Task = function(id, title, dateFrom, dateTo, lvl, discription, done){
+    var Task = function(id, title, dateFrom, dateTo, lvl, discription, done) {
         this.id = id;
         this.title = title;
         this.dateFrom = dateFrom;
@@ -238,19 +239,19 @@ document.addEventListener('DOMContentLoaded', function() {
         this.done = done;
     }
 
-    function getId(){
+    function getId() {
         var maxId = 0;
-        document.querySelectorAll('.grid-task').forEach(function(task){
+        document.querySelectorAll('.grid-task').forEach(function(task) {
 
-            if(maxId < parseInt(task.dataset.id)+1){
-                maxId = parseInt(task.dataset.id)+1;
+            if (maxId < parseInt(task.dataset.id) + 1) {
+                maxId = parseInt(task.dataset.id) + 1;
             }
 
         });
         return maxId;
     }
 
-    btnAdd.addEventListener('click', function(e){
+    btnAdd.addEventListener('click', function(e) {
 
         e.preventDefault();
 
@@ -274,18 +275,22 @@ document.addEventListener('DOMContentLoaded', function() {
         form.slideUp();
         formContent.slideUp();
         //ukrywam ikony
-        for(let i=0; i<3; i++) iconOk.eq(i).hide();
+        for (let i = 0; i < 3; i++) iconOk.eq(i).hide();
         //resetuje lvl
         document.querySelectorAll('#boxLvl > input')[4].checked = true;
         //resetuje licznik znaków
         document.querySelector('form > div p').innerText = 0
-        //dezaktyruję przycisk
+        //dezaktyruję przycisk dodawania
         validation();
+        //resetuję walidację
+        valTitle = false,
+        valDate = false,
+        valDiscrition = false;
     })
 
     // Przyciski: delete, complete, edit
     var body = document.querySelector("body");
-    body.addEventListener("click", function (e) {
+    body.addEventListener("click", function(e) {
 
         if (e.target.className === "btnDelete icon-delete") {
 
@@ -294,14 +299,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 task = e.target.parentElement.parentElement,
                 taskId = task.dataset.id;
 
-            for(let i=0; i<tasks.length; i++){
+            for (let i = 0; i < tasks.length; i++) {
 
-                if(tasks[i].id == taskId){
+                if (tasks[i].id == taskId) {
 
                     //kasuje obiekt w tablicy
                     delete tasks[i];
 
-                    tasks = tasks.filter(function(task){
+                    tasks = tasks.filter(function(task) {
                         return (task !== 'empty');
                     })
                     //kasuję html z taskiem
@@ -324,11 +329,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 h1 = task.querySelector("h1");
 
 
-            for(let i=0; i<tasks.length; i++){
+            for (let i = 0; i < tasks.length; i++) {
 
-                if(tasks[i].id == taskId){
+                if (tasks[i].id == taskId) {
 
-                    if(tasks[i].done == false){
+                    if (tasks[i].done == false) {
                         tasks[i].done = true;
                         task.style.backgroundColor = 'rgba(255, 228, 217, 0.5)';
                         h1.style.textDecoration = "line-through";
@@ -344,15 +349,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
         }
 
-        if (e.target.className === "btnEdit icon-edit"){
+        if (e.target.className === "btnEdit icon-edit") {
 
         }
 
     });
 
-    function addAllTask(){
+    function addAllTask() {
 
-        for(let i=0; i<tasks.length; i++){
+        for (let i = 0; i < tasks.length; i++) {
             addedTask(tasks[i].id, tasks[i].title, tasks[i].dateFrom, tasks[i].dateTo, tasks[i].lvl, tasks[i].discription, tasks[i].done);
         }
 
@@ -362,12 +367,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     }
 
-    function showAllTasksFromStorage(){
+    function showAllTasksFromStorage() {
 
         //pobieram z pamięci
         tasks = downloadTasks();
 
-        if(tasks !== null){
+        if (tasks !== null) {
 
             addAllTask();
 
@@ -386,11 +391,11 @@ document.addEventListener('DOMContentLoaded', function() {
         btnShowAll = document.querySelector('.menu > ul > li:nth-child(3)');
 
     //event dla sortowania
-    btnSortLvl.addEventListener('click', function(){
+    btnSortLvl.addEventListener('click', function() {
 
         clearList();
 
-        if(sort === false) {
+        if (sort === false) {
             sortDown();
         } else {
             sortUp();
@@ -402,8 +407,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var done = true;
     //event dla pokazywania zrobionych i na odwrót
-    btnSortDone.addEventListener('click', function(){
-        if(done === true) {
+    btnSortDone.addEventListener('click', function() {
+        if (done === true) {
             toggleShowTask(true)
             done = false;
         } else {
@@ -413,17 +418,17 @@ document.addEventListener('DOMContentLoaded', function() {
     })
 
     //event dla pokazania wszytskich na liście
-    btnShowAll.addEventListener('click', function(){
+    btnShowAll.addEventListener('click', function() {
         showAllTask();
     })
 
     //funkcja czyszczonca listę
-    function clearList(){
+    function clearList() {
 
         var main = document.querySelector('main'),
             allTask = document.querySelectorAll('.grid-task');
 
-        for(let i=0; i<allTask.length; i++){
+        for (let i = 0; i < allTask.length; i++) {
             main.removeChild(allTask[i]);
         }
 
@@ -432,76 +437,72 @@ document.addEventListener('DOMContentLoaded', function() {
     //zmienna sterująca
     var sort = false;
 
-    function sortDown(){
+    function sortDown() {
 
-        tasks.sort(function(min, max){
+        tasks.sort(function(min, max) {
             return max.lvl - min.lvl;
         });
 
         sort = true;
 
-        btnSortLvl.innerText = "Sortuj malejąco";
-
     }
 
-    function sortUp(){
+    function sortUp() {
 
-        tasks.sort(function(min, max){
+        tasks.sort(function(min, max) {
             return min.lvl - max.lvl;
         });
 
         sort = false;
 
-        btnSortLvl.innerText = "Sortuj rosnąco";
     }
 
     //funkcja pokazująca całą listę
-    function showAllTask(){
+    function showAllTask() {
 
         var elAllTasks = $('.grid-task');
-        for(let i=0; i<tasks.length; i++){
+        for (let i = 0; i < tasks.length; i++) {
             elAllTasks.eq(i).hide();
         }
         elAllTasks.fadeIn();
 
     }
 
-    function toggleShowTask(bool){
+    function toggleShowTask(bool) {
 
         var elAllTasks = $('.grid-task');
 
-        for(let i=0; i<tasks.length; i++){
-            if(tasks[i].done !== bool){
+        for (let i = 0; i < tasks.length; i++) {
+            if (tasks[i].done !== bool) {
                 elAllTasks.eq(i).fadeOut();
             } else {
                 elAllTasks.eq(i).fadeIn();
             }
         }
-        if(bool === true){
-            btnSortDone.innerText = "Pokaż  do zrobienia";
+        if (bool === true) {
+            btnSortDone.innerText = "Show to do";
         } else {
-            btnSortDone.innerText = "Pokaż zakończone";
+            btnSortDone.innerText = "Show completed";
         }
 
     }
 
-
     var btnAllDeleteDone = document.querySelector('footer > button'),
-        actionDiv= document.querySelector("#actionDiv");
+        actionDiv = document.querySelector("#actionDiv");
 
-    btnAllDeleteDone.addEventListener('click', function(){
+    btnAllDeleteDone.addEventListener('click', function() {
 
         var elAllTasks = document.querySelectorAll('.grid-task'),
             main = document.querySelector('main');
 
-        for(let i=0; i<tasks.length; i++){
-            if(tasks[i].done == true){
+        for (let i = 0; i < tasks.length; i++) {
+            if (tasks[i].done == true) {
                 delete tasks[i];
                 main.removeChild(elAllTasks[i]);
             }
         }
 
-        tasks = tasks.filter(function(task){
+        tasks = tasks.filter(function(task) {
             return (task !== 'empty');
         })
         //latajacy kot
@@ -510,14 +511,5 @@ document.addEventListener('DOMContentLoaded', function() {
 
         saveTasks(tasks);
     })
-
-
-    var motive = document.querySelectorAll('footer > div li');
-
-    function changeMotive(bgColor, fontColor, fontFamily, btnColor){
-        var main = document.querySelector('main'),
-            body = document.querySelector('body');
-            ////////////DO ZROBIENIA////////////
-    }
 
 });
