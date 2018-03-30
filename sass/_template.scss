@@ -31,3 +31,17 @@
 	font-size: 1em;
 	font-family: 'Amatic SC', cursive;
 }
+
+@mixin tooltip {
+	border-radius: 5px;
+	padding: 10px;
+	font-family: "Times New Roman", Times, serif;
+	font-size: 10px;
+	font-weight: 300;
+	box-shadow: 3px 3px 10px map-get($vividColors, Violet);
+	position: absolute;
+	top: 5px;
+	right: 5px;
+
+	@content;
+}

@@ -40,12 +40,12 @@ document.addEventListener('DOMContentLoaded', function() {
     //walidacja formularza
     var title = document.querySelector('#title'),
         date = document.querySelector('#date'),
-        discription = document.querySelector('#discription'),
+        description = document.querySelector('#description'),
         btnAdd = document.querySelector('form button');
 
     var valTitle = false,
         valDate = false,
-        valDiscrition = false;
+        valDescription = false;
 
     //funkcja sprawdzająca czy walidacja przeszła poprawnie
     function validation(val1, val2, val3) {
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
             valTitle = false;
         }
 
-        validation(valTitle, valDate, valDiscrition);
+        validation(valTitle, valDate, valDescription);
 
     })
 
@@ -96,25 +96,25 @@ document.addEventListener('DOMContentLoaded', function() {
             valDate = false;
         }
 
-        validation(valTitle, valDate, valDiscrition);
+        validation(valTitle, valDate, valDescription);
 
     })
 
     //walidacja opisu
-    discription.addEventListener('keyup', function() {
+    description.addEventListener('keyup', function() {
 
-        var counter = discription.value.length;
+        var counter = description.value.length;
         document.querySelector('form > div p').innerText = counter;
 
         if (counter < 100 && counter > 10) {
             iconOk.eq(2).fadeIn();
-            valDiscrition = true;
+            valDescription = true;
         } else {
             iconOk.eq(2).fadeOut();
-            valDiscrition = false;
+            valDescription = false;
         }
 
-        validation(valTitle, valDate, valDiscrition);
+        validation(valTitle, valDate, valDescription);
 
     })
 
@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return JSON.parse(localStorage.getItem('todo_list'));
     }
 
-    function addedTask(id, title, dateFrom, dateTo, lvl, discription, done) {
+    function addedTask(id, title, dateFrom, dateTo, lvl, description, done) {
 
         var taskDiv = document.createElement('div'),
             titleH1 = document.createElement('h1'),
@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
             dateH3 = document.createElement('h3'),
             lvlDiv = document.createElement('div'),
             btnDiv = document.createElement('div'),
-            discriptionP = document.createElement('p'),
+            descriptionP = document.createElement('p'),
             buttons = [],
             lvlsI = [];
 
@@ -170,13 +170,18 @@ document.addEventListener('DOMContentLoaded', function() {
         for (let i = 0; i < 3; i++) {
             buttons[i] = document.createElement('button');
         }
-        //dodaje im klasy
+        //dodaje im klasy i data
         buttons[0].classList.add('btnDelete');
         buttons[1].classList.add('btnComplete');
         buttons[2].classList.add('btnEdit');
         buttons[0].classList.add('icon-delete');
         buttons[1].classList.add('icon-ok');
         buttons[2].classList.add('icon-edit');
+        buttons[0].dataset.btn = "delete";
+        buttons[1].dataset.btn = "complete";
+        buttons[2].dataset.btn = "edit";
+        buttons[2].dataset.edited = "false";
+
         //wrzucam do diva
         for (let i = 0; i < 3; i++) {
             btnDiv.appendChild(buttons[i]);
@@ -193,7 +198,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         //daje mu klasę
         lvlDiv.classList.add('lvl');
-        discriptionP.classList.add('discription');
+        descriptionP.classList.add('description');
         taskDiv.classList.add('grid-task');
 
         //przypisuję id
@@ -203,14 +208,14 @@ document.addEventListener('DOMContentLoaded', function() {
         titleH1.innerText = title;
         dateH2.innerText = dateTo;
         dateH3.innerText = dateFrom;
-        discriptionP.innerText = discription;
+        descriptionP.innerText = description;
 
         //wrzucam gotowe elementy do głównego kontenera
         taskDiv.appendChild(titleH1);
         taskDiv.appendChild(dateH2);
         taskDiv.appendChild(dateH3);
         taskDiv.appendChild(lvlDiv);
-        taskDiv.appendChild(discriptionP);
+        taskDiv.appendChild(descriptionP);
         taskDiv.appendChild(btnDiv);
 
         if (done === true) {
@@ -229,13 +234,13 @@ document.addEventListener('DOMContentLoaded', function() {
     var tasks = [];
 
     //konstruktor zadania
-    var Task = function(id, title, dateFrom, dateTo, lvl, discription, done) {
+    var Task = function(id, title, dateFrom, dateTo, lvl, description, done) {
         this.id = id;
         this.title = title;
         this.dateFrom = dateFrom;
         this.dateTo = dateTo;
         this.lvl = lvl;
-        this.discription = discription;
+        this.description = description;
         this.done = done;
     }
 
@@ -255,12 +260,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
         e.preventDefault();
 
-        var task = new Task(getId(), title.value, dateNow(), date.value, lvl, discription.value, false);
+        var task = new Task(getId(), title.value, dateNow(), date.value, lvl, description.value, false);
         tasks.push(task);
 
         saveTasks(tasks);
 
-        addedTask(task.id, task.title, task.dateFrom, task.dateTo, task.lvl, task.discription, task.done);
+        addedTask(task.id, task.title, task.dateFrom, task.dateTo, task.lvl, task.description, task.done);
 
         $('main').animate({
             width: "toggle"
@@ -270,7 +275,7 @@ document.addEventListener('DOMContentLoaded', function() {
         //z pół formularza
         title.value = "";
         date.value = "";
-        discription.value = "";
+        description.value = "";
         //zwijam formularz
         form.slideUp();
         formContent.slideUp();
@@ -283,21 +288,21 @@ document.addEventListener('DOMContentLoaded', function() {
         //dezaktyruję przycisk dodawania
         validation();
         //resetuję walidację
-        valTitle = false,
-        valDate = false,
-        valDiscrition = false;
+        valTitle = false;
+        valDate = false;
+        valdescription = false;
     })
 
     // Przyciski: delete, complete, edit
-    var body = document.querySelector("body");
+    let body = document.querySelector("body");
+
     body.addEventListener("click", function(e) {
 
-        if (e.target.className === "btnDelete icon-delete") {
+        if (e.target.dataset.btn === "delete") {
 
-            var taskEl = document.querySelectorAll('.grid-task'),
-                main = document.querySelector('main'),
-                task = e.target.parentElement.parentElement,
-                taskId = task.dataset.id;
+            let taskEl = e.target.parentElement.parentElement,
+                main = taskEl.parentElement,
+                taskId = taskEl.dataset.id;
 
             for (let i = 0; i < tasks.length; i++) {
 
@@ -310,7 +315,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         return (task !== 'empty');
                     })
                     //kasuję html z taskiem
-                    main.removeChild(taskEl[i]);
+                    main.removeChild(taskEl);
 
                 }
 
@@ -320,26 +325,25 @@ document.addEventListener('DOMContentLoaded', function() {
             saveTasks(tasks);
 
         }
-        if (e.target.className === "btnComplete icon-ok") {
+        if (e.target.dataset.btn === "complete") {
 
-            var taskEl = document.querySelectorAll('.grid-task'),
-                main = document.querySelector('main'),
-                task = e.target.parentElement.parentElement,
-                taskId = task.dataset.id,
-                h1 = task.querySelector("h1");
+            let taskEl = e.target.parentElement.parentElement,
+                main = taskEl.parentElement,
+                taskId = taskEl.dataset.id,
+                h1 = taskEl.firstElementChild;
 
-
+            console.log(h1);
             for (let i = 0; i < tasks.length; i++) {
 
                 if (tasks[i].id == taskId) {
 
                     if (tasks[i].done == false) {
                         tasks[i].done = true;
-                        task.style.backgroundColor = 'rgba(255, 228, 217, 0.5)';
+                        taskEl.style.backgroundColor = 'rgba(255, 228, 217, 0.5)';
                         h1.style.textDecoration = "line-through";
                     } else {
                         tasks[i].done = false;
-                        task.style.backgroundColor = "transparent";
+                        taskEl.style.backgroundColor = "transparent";
                         h1.style.textDecoration = "none";
                     }
                 }
@@ -349,7 +353,85 @@ document.addEventListener('DOMContentLoaded', function() {
 
         }
 
-        if (e.target.className === "btnEdit icon-edit") {
+        if (e.target.dataset.btn === "edit") {
+
+            let taskEl = e.target.parentElement.parentElement,
+                main = taskEl.parentElement,
+                taskId = taskEl.dataset.id,
+                title = taskEl.firstElementChild,
+                description = taskEl.querySelector('p'),
+                btnEdit = taskEl.querySelector('div.btn > .btnEdit'),
+                btnDelete = taskEl.querySelector('div.btn > .btnDelete'),
+                btnComplete = taskEl.querySelector('div.btn > .btnComplete'),
+                idTime = '',
+                valDescription = true,
+                valTitle = true;
+
+            if (btnEdit.dataset.edited === "false") {
+
+                btnEdit.classList.add('edit');
+                btnEdit.dataset.edited = 'true';
+                btnDelete.setAttribute('disabled', 'disabled');
+                btnComplete.setAttribute('disabled', 'disabled');
+                title.setAttribute('contentEditable', true);
+                description.setAttribute('contentEditable', true);
+                title.style.boxShadow = "0 0 20px 0 #BE0F64";
+                description.style.boxShadow = "0 0 20px 0 #BE0F64"
+
+            } else {
+
+                //walidacja
+                let lengthDes = description.innerText.length,
+                    lengthTitle = title.innerText.length;
+
+                //opisu
+                if (lengthDes < 100 && lengthDes > 10) {
+                    valDescription = true;
+                } else {
+                    valDescription = false;
+                }
+
+                //tytułu
+                if (lengthTitle < 25 && lengthTitle > 5) {
+                    valTitle = true;
+                } else {
+                    valTitle = false;
+                }
+
+                //sprawdzenie
+                if (!(valTitle && valDescription)) {
+                    clearTimeout(idTime);
+                    description.classList.add('tooltipDescription');
+                    title.classList.add('tooltipTitle');
+
+                    idTime = setTimeout(function() {
+                        description.classList.remove('tooltipDescription');
+                        title.classList.remove('tooltipTitle');
+                    }, 4000);
+
+                } else {
+
+                    for (let i = 0; i < tasks.length; i++) {
+
+                        if (tasks[i].id == taskId) {
+                            tasks[i].description = description.innerText;
+                            tasks[i].title = title.innerText;
+                        }
+                    }
+                    saveTasks(tasks);
+
+                    btnEdit.classList.remove('edit');
+                    btnEdit.dataset.edited = 'false';
+                    btnDelete.removeAttribute('disabled');
+                    btnComplete.removeAttribute('disabled');
+                    title.setAttribute('contentEditable', false);
+                    description.setAttribute('contentEditable', false);
+                    title.style.boxShadow = "none";
+                    description.style.boxShadow = "none";
+                }
+
+            }
+
 
         }
 
@@ -358,7 +440,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function addAllTask() {
 
         for (let i = 0; i < tasks.length; i++) {
-            addedTask(tasks[i].id, tasks[i].title, tasks[i].dateFrom, tasks[i].dateTo, tasks[i].lvl, tasks[i].discription, tasks[i].done);
+            addedTask(tasks[i].id, tasks[i].title, tasks[i].dateFrom, tasks[i].dateTo, tasks[i].lvl, tasks[i].description, tasks[i].done);
         }
 
         $('main').animate({

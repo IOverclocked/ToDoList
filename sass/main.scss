@@ -20,12 +20,7 @@ body {
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);
 	grid-auto-rows: minmax(2em, auto);
-	grid-template-areas:
-	"header header header header header"
-	"main main main main main"
-	"main main main main main"
-	"main main main main main"
-	"footer footer footer footer footer";
+	grid-template-areas: "header header header header header" "main main main main main" "main main main main main" "main main main main main" "footer footer footer footer footer";
 	position: relative;
 	z-index: 0;
 }
@@ -173,7 +168,7 @@ header {
 				grid-row: 2;
 			}
 
-			label[for=discription] {
+			label[for=description] {
 				grid-column: 2;
 				grid-row: 3/7;
 
@@ -258,15 +253,7 @@ main {
 		display: grid;
 		grid-template-columns: repeat(5, 1fr);
 		grid-auto-rows: minmax(2em, auto);
-		grid-template-areas:
-		"dateFrom dateFrom dateTo dateTo dateTo"
-		"title title title title title"
-		"title title title title title"
-		"lvl lvl lvl lvl lvl"
-		"discription discription discription discription discription"
-		"discription discription discription discription discription"
-		"discription discription discription discription discription"
-		"btn btn btn btn btn";
+		grid-template-areas: "dateFrom dateFrom dateTo dateTo dateTo" "title title title title title" "title title title title title" "lvl lvl lvl lvl lvl" "description description description description description" "description description description description description" "description description description description description" "btn btn btn btn btn";
 		z-index: 5;
 
 		h1 {
@@ -276,7 +263,21 @@ main {
 			padding: 5px;
 			border-top: 1px solid black;
 			border-bottom: 1px solid black;
+			transition: 1s;
+			position: relative;
+			z-index: 5;
 			@include flexLeft();
+
+			&:focus {
+				outline: 0;
+				border: 3px solid map-get($vividColors, 'Violet');
+				border-radius: 10px;
+				&::after {
+					transition: 1s;
+					box-shadow: 3px 3px 10px map-get($vividColors, 'Green');
+				}
+			}
+
 		}
 
 		h2 {
@@ -299,11 +300,26 @@ main {
 			padding: 5px;
 		}
 
-		.discription {
+		.description {
 			font-family: 'Dawning of a New Day', cursive;
 			font-size: 1.5em;
-			grid-area: discription;
+			grid-area: description;
 			padding: 5px;
+			transition: 1s;
+			position: relative;
+			z-index: 5;
+
+			&:focus {
+				outline: 0;
+				border: 3px solid map-get($vividColors, 'Violet');
+				border-radius: 10px;
+				&::after {
+					transition: 1s;
+					box-shadow: 3px 3px 10px map-get($vividColors, 'Green');
+				}
+			}
+
+
 		}
 
 		.btn {
@@ -395,12 +411,37 @@ footer {
 .btnEdit {
 	background-color: map-get($mintColors,mint4);
 	color: map-get($fontColors,DarkGrey);
-	cursor: pointer;
 
-	&:hover {
+	&:enabled:hover {
 		background-color: map-get($mintColors,mint5);
 		color: map-get($fontColors,SmokeyNavy);
 		box-shadow: 5px 5px 10px rgb(100,100,100);
+		cursor: pointer;
+	}
+}
+
+.edit {
+	border-color: map-get($vividColors, Pink);
+	background-color: map-get($vividColors, Pink);
+	color: map-get($fontColors,White);
+	cursor: pointer;
+
+	&:enabled:hover {
+		background-color: map-get($vividColors, Violet);
+		color: map-get($fontColors,White);
+		box-shadow: 3px 3px 10px map-get($vividColors, Violet);
+	}
+}
+
+.tooltipDescription::after {
+	@include tooltip {
+		content: "10 to 100 characters!";
+	}
+}
+
+.tooltipTitle::after {
+	@include tooltip {
+		content: "5 to 25 characters!";
 	}
 }
 
@@ -475,14 +516,7 @@ footer {
 			display: grid;
 			grid-template-columns: repeat(5, 1fr);
 			grid-auto-rows: minmax(2em, auto);
-			grid-template-areas:
-			"dateFrom title title title dateTo"
-			"dateFrom title title title dateTo"
-			"lvl lvl lvl lvl lvl"
-			"discription discription discription discription discription"
-			"discription discription discription discription discription"
-			"discription discription discription discription discription"
-			"btn btn btn btn btn";
+			grid-template-areas: "dateFrom title title title dateTo" "dateFrom title title title dateTo" "lvl lvl lvl lvl lvl" "description description description description description" "description description description description description" "description description description description description" "btn btn btn btn btn";
 			z-index: 5;
 
 			h1 {
@@ -518,10 +552,10 @@ footer {
 				padding-left: 20px;
 			}
 
-			.discription {
+			.description {
 				font-family: 'Dawning of a New Day', cursive;
 				font-size: 1.5em;
-				grid-area: discription;
+				grid-area: description;
 				padding: 10px;
 				@include flexCenter();
 			}
