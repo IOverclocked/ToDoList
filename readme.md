@@ -1,9 +1,9 @@
 # ToDoList
 
-Jest to projekt aplikacji webowej pozwalającej użytkownikowi tworzenie własnej listy zadań do wykonania oraz do zarządzania nią.
+It is a web application project that allows the user to created own to do list.
 
 ## Demo
-You can check the website preview with **[this link]( https://ioverclocked.github.io/ToDoList/)** 
+You can check the website preview with **[this link]( https://ioverclocked.github.io/ToDoList/)**
 
 ## Authors
 
