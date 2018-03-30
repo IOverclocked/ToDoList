@@ -356,7 +356,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (e.target.dataset.btn === "edit") {
 
             let taskEl = e.target.parentElement.parentElement,
-                main = taskEl.parentElement,
                 taskId = taskEl.dataset.id,
                 title = taskEl.firstElementChild,
                 description = taskEl.querySelector('p'),
