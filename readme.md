@@ -1,6 +1,6 @@
 # ToDoList
 
-It is a web application project that allows you to create your own list of tasks.
+It is a project of web application which allows users to create own to do list.
 
 ## Demo
 You can check the website preview with **[this link]( https://ioverclocked.github.io/ToDoList/)**
